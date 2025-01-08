@@ -3,7 +3,7 @@ const extendDialogs = (body) => {
 
   Array.from(body.querySelectorAll('dialog[open]')).forEach((dialog, index) => {
 
-    let parent = dialog.closest('.dialog__wrapper');
+    const parent = dialog.closest('.dialog__wrapper');
 
     if(!parent){
         
@@ -36,7 +36,7 @@ const extendDialogs = (body) => {
 
       if(!dialog.querySelector('iam-multi-step')){
         
-        let firstWidth = dialog.offsetWidth;
+        const firstWidth = dialog.offsetWidth;
         dialog.setAttribute('style',`max-width: ${firstWidth}px;`);
       }
 
@@ -49,7 +49,7 @@ const extendDialogs = (body) => {
         if(element.checked != originalInput.checked){
 
           element.checked = originalInput.checked;
-          let changeEvent = new Event('change');
+          const changeEvent = new Event('change');
           element.dispatchEvent(changeEvent);
         }
       });
@@ -73,7 +73,7 @@ const extendDialogs = (body) => {
         btnElement.classList.remove('active');
       });
 
-      let closeEvent = new CustomEvent('dialog-closed', {
+      const closeEvent = new CustomEvent('dialog-closed', {
         bubbles: true,
         cancelable: true,
         detail: { modalId: dialog.id }
@@ -109,7 +109,7 @@ const extendDialogs = (body) => {
       let dialog = event.target.closest('dialog[open]');
 
       // Small fix to make sure the dialog isn't a dialog inside of a dialog.
-      var style = window.getComputedStyle(dialog);
+      const style = window.getComputedStyle(dialog);
       if(style.display === 'contents')
         dialog = dialog.parentNode.closest('dialog[open]');
       
@@ -138,10 +138,10 @@ const extendDialogs = (body) => {
       
     event.stopPropagation();
 
-      let btn = event.target.closest('.dialog__wrapper > button');
-      let parent = btn.parentNode;
+      const btn = event.target.closest('.dialog__wrapper > button');
+      const parent = btn.parentNode;
       let dataEvent = "openPopover"
-      let popover = parent.querySelector(':scope > dialog');
+      const popover = parent.querySelector(':scope > dialog');
       
 
       // close open dialogs
@@ -172,13 +172,13 @@ const extendDialogs = (body) => {
         popover.show();
         btn.setAttribute('aria-expanded', true);
 
-        var position = btn.getBoundingClientRect();
+        const position = btn.getBoundingClientRect();
         let topOffset = position.top;
         let leftOffset = position.left;
 
         if(btn.closest('iam-table')){
 
-          let container = btn.closest('iam-table').parentNode.getBoundingClientRect();
+          const container = btn.closest('iam-table').parentNode.getBoundingClientRect();
 
           topOffset -= container.top;
           leftOffset -= container.left;
@@ -192,16 +192,16 @@ const extendDialogs = (body) => {
       // When the dialog is fixed it could dip under the viewport
       // Lets check the dimensions and transform it to appear above
       let boundingRec = popover.getBoundingClientRect();
-      let popoverBottom = boundingRec.bottom - window.scrollY;
-      let windowPos = window.innerHeight - window.scrollY;
+      const popoverBottom = boundingRec.bottom - window.scrollY;
+      const windowPos = window.innerHeight - window.scrollY;
       if(popoverBottom > windowPos){
 
-        let currentStyle = popover.hasAttribute('style') ? popover.getAttribute('style')+' ' : '';
+        const currentStyle = popover.hasAttribute('style') ? popover.getAttribute('style')+' ' : '';
         popover.setAttribute('style',currentStyle+`transform: translate(0, calc(-100% - 4rem))`);
 
         // Check that the dialog doesn't go over the top of the page
         boundingRec = popover.getBoundingClientRect();
-        let popoverTop = boundingRec.top - window.scrollY;
+        const popoverTop = boundingRec.top - window.scrollY;
 
         if(popoverTop < 100)
           popover.removeAttribute('style');
@@ -236,12 +236,12 @@ export const createDialog = (dialog) => {
   if(!dialog.querySelector(':scope .mh-lg') && !dialog.querySelector('iam-multi-step')){
     dialog.innerHTML = `<div class="mh-lg">${dialog.innerHTML}</div>`;
 
-    let dialogContent = dialog.querySelector('.mh-lg');
-    let titleElement = dialog.querySelector('.mh-lg :is(.h1,.h2,.h3,.h4,.h5,.h6)');
+    const dialogContent = dialog.querySelector('.mh-lg');
+    const titleElement = dialog.querySelector('.mh-lg :is(.h1,.h2,.h3,.h4,.h5,.h6)');
 
     if(titleElement){
         
-      let optionalElement = titleElement.previousSibling;
+      const optionalElement = titleElement.previousSibling;
 
       dialogContent.before(titleElement);
       

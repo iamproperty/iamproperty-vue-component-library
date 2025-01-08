@@ -17,9 +17,9 @@ export const addDataAttributes = (table) => {
       const heading = colHeadings[cellIndex];
       if(typeof heading != "undefined"){
 
-        let tempDiv = document.createElement("div");
+        const tempDiv = document.createElement("div");
         tempDiv.innerHTML = heading.innerHTML;
-        let headingText = tempDiv.textContent || tempDiv.innerText || "";
+        const headingText = tempDiv.textContent || tempDiv.innerText || "";
         cell.setAttribute('data-label',headingText);
 
         if(heading.hasAttribute('data-td-class'))
@@ -44,8 +44,8 @@ export const getLargestLastColWidth = (table) => {
 
   Array.from(table.querySelectorAll('tbody tr')).forEach((row, index) => {
 
-    let htmlStyles = window.getComputedStyle(document.querySelector('html'));
-    let lastColChild = row.querySelector(':scope > *:last-child > *:first-child');
+    const htmlStyles = window.getComputedStyle(document.querySelector('html'));
+    const lastColChild = row.querySelector(':scope > *:last-child > *:first-child');
 
     if(lastColChild){
 
@@ -94,8 +94,8 @@ export const addTableEventListeners = (table) => {
 
     if (event && event.target instanceof HTMLElement && event.target.closest('[data-expand-button]')){
 
-      let button = event.target.closest('[data-expand-button]');
-      let tableRow = button.closest('tr');
+      const button = event.target.closest('[data-expand-button]');
+      const tableRow = button.closest('tr');
 
       button.toggleAttribute('aria-expanded');
 
@@ -112,16 +112,16 @@ export const addTableEventListeners = (table) => {
 // Filters
 export const createSearchDataList = (table, form) => {
 
-  let searchInput = form.querySelector('input[data-search]');
+  const searchInput = form.querySelector('input[data-search]');
 
   if(!searchInput)
     return false;
 
   const searchID = searchInput.getAttribute('id');
   const searchableColumns = searchInput.getAttribute('data-search').split(',');
-  let inputWrapper = searchInput.parentNode;
+  const inputWrapper = searchInput.parentNode;
 
-  let searchableTerms = {};
+  const searchableTerms = {};
   searchableColumns.forEach((columnHeading, index) => {
 
     Array.from(table.querySelectorAll('td[data-label="'+columnHeading.trim()+'"]')).forEach((td, index) => {
@@ -144,10 +144,10 @@ export const createSearchDataList = (table, form) => {
 
 export const addFilterEventListeners = (table, form, pagination, wrapper, savedTableBody) => {
 
-  var timer;
+  let timer;
 
   // Check what conditions are set on the table to see what the form actions are
-  let formSubmit = function(event, paginate = false){
+  const formSubmit = function(event, paginate = false){
 
     if(wrapper.hasAttribute('data-no-submit')){
       return false;
@@ -158,7 +158,7 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
 
     Array.from(form.querySelectorAll('iam-applied-filters')).forEach((element,index) => {
 
-      var event = new Event('tags-set');
+      const event = new Event('tags-set');
       element.dispatchEvent(event);
     });
 
@@ -175,7 +175,7 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
         if(input.checked != element.checked){
             
           if(card){
-            let clickEvent = new Event('click');
+            const clickEvent = new Event('click');
             card.dispatchEvent(clickEvent);
           }
           else {
@@ -190,7 +190,7 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
 
       // Default back to page 1
       if(!paginate){
-        let paginationInput = form.querySelector('[data-pagination]');
+        const paginationInput = form.querySelector('[data-pagination]');
         paginationInput.value = 1;
         wrapper.setAttribute('data-page', 1);
       }
@@ -208,8 +208,8 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
     // Pass post data back to the page
     if(form.hasAttribute('data-ajax-post')){
           
-      let formData = new FormData(form);
-      let queryString = new URLSearchParams(formData).toString();
+      const formData = new FormData(form);
+      const queryString = new URLSearchParams(formData).toString();
       const http = new XMLHttpRequest()
       http.open('GET', `${window.location.href}?ajax=true&${queryString}`);
       http.send();
@@ -289,7 +289,7 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
 
     if(event && event.target instanceof HTMLElement && event.target.hasAttribute('id')){
       
-      let id = event.target.getAttribute('id');
+      const id = event.target.getAttribute('id');
 
       if(document.querySelector(`[data-duplicate="${id}"]`)){
         document.querySelector(`[data-duplicate="${id}"]`).checked = event.target.checked;
@@ -304,8 +304,8 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
     
     if (event && event.target instanceof HTMLElement && event.target.closest('dialog button:not([type="button"])')){
       
-      let button = event.target.closest('dialog button:not([type="button"])');
-      let modal = button.closest('dialog');
+      const button = event.target.closest('dialog button:not([type="button"])');
+      const modal = button.closest('dialog');
 
       modal.close();
     }
@@ -326,11 +326,11 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
       });
 
       // Make sure cards are unlicked
-      let frm_elements = form.elements;
+      const frm_elements = form.elements;
 
       for (let i = 0; i < frm_elements.length; i++)
       {
-          let field_type = frm_elements[i].type.toLowerCase() ? frm_elements[i].type.toLowerCase() : "text";
+          const field_type = frm_elements[i].type.toLowerCase() ? frm_elements[i].type.toLowerCase() : "text";
           switch (field_type)
           {
           case "text":
@@ -342,13 +342,13 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
           case "checkbox":
               if (frm_elements[i].checked)
               {
-                  let input = frm_elements[i];
-                  let id = input.getAttribute('id');
-                  let label = document.querySelector(`[for="${id}"`);
+                  const input = frm_elements[i];
+                  const id = input.getAttribute('id');
+                  const label = document.querySelector(`[for="${id}"`);
 
                   if(label.querySelector('iam-card')){
-                    let card = label.querySelector('iam-card');
-                    let clickEvent = new Event('click');
+                    const card = label.querySelector('iam-card');
+                    const clickEvent = new Event('click');
                     card.dispatchEvent(clickEvent);
                   }
 
@@ -400,17 +400,17 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
   
 
   // Mmimic fields
-  let forms = [];
-  let fields = [];
+  const forms = [];
+  const fields = [];
 
   // Collect the forms that we need to add an event listener for.
   Array.from(form.querySelectorAll('[data-mimic]')).forEach((input, index) => {
     
-    let mimicField = input.getAttribute('data-mimic');
+    const mimicField = input.getAttribute('data-mimic');
 
     Array.from(document.querySelectorAll(`[name="${mimicField}"]`)).forEach((mimicInput, index) => {
 
-      let parentForm = mimicInput.closest('form');
+      const parentForm = mimicInput.closest('form');
 
       if(!forms.includes(parentForm)){
         forms.push(parentForm);
@@ -428,8 +428,8 @@ export const addFilterEventListeners = (table, form, pagination, wrapper, savedT
   forms.forEach((parentForm, index) => {
 
     const updateMimicInput = function(){
-      let mimickedAlready = [];
-      let formData = new FormData(parentForm);
+      const mimickedAlready = [];
+      const formData = new FormData(parentForm);
       
       let i = 1;
       for (const [key, value] of formData) {
@@ -480,20 +480,20 @@ export const sortTable = (table, form, savedTableBody) => {
     return false;
   }
 
-  let tbody = table.querySelector('tbody');
+  const tbody = table.querySelector('tbody');
 
 
   let selectedOption = form.querySelector(`input[type="radio"][data-sort]:checked`);
 
   if(form.querySelector('select[data-sort]')){
     
-    let select = form.querySelector('select[data-sort]');
+    const select = form.querySelector('select[data-sort]');
     selectedOption = form.querySelector(`select[data-sort] option:nth-child(${select.selectedIndex + 1})`);
   }
 
-  let sortBy = selectedOption.getAttribute('data-sort');
-  let order = selectedOption.getAttribute('data-order');
-  let format = selectedOption.getAttribute('data-format');
+  const sortBy = selectedOption.getAttribute('data-sort');
+  const order = selectedOption.getAttribute('data-order');
+  const format = selectedOption.getAttribute('data-format');
 
   if(!sortBy){
     
@@ -559,11 +559,11 @@ export const filterTable = (table, form, wrapper) => {
 
   table.classList.remove('table--filtered');
 
-  let filters = filterFilters(form);
-  let searches = [];
+  const filters = filterFilters(form);
+  const searches = [];
   let matched = 0;
-  let page = form.querySelector('[data-pagination]') ? parseInt(form.querySelector('[data-pagination]').value) : 1;
-  let showRows = form.querySelector('[data-show]') ? parseInt(form.querySelector('[data-show]').value) : 15;
+  const page = form.querySelector('[data-pagination]') ? parseInt(form.querySelector('[data-pagination]').value) : 1;
+  const showRows = form.querySelector('[data-show]') ? parseInt(form.querySelector('[data-show]').value) : 15;
 
   // Reset
   Array.from(table.querySelectorAll('tbody tr')).forEach((row, index) => {
@@ -576,8 +576,8 @@ export const filterTable = (table, form, wrapper) => {
 
   // Add search columns too
   if(form.querySelector('input[data-search]')){
-    let searchInput = form.querySelector('input[data-search]');
-    let searchColumns = form.querySelector('input[data-search]').getAttribute('data-search').split(',');
+    const searchInput = form.querySelector('input[data-search]');
+    const searchColumns = form.querySelector('input[data-search]').getAttribute('data-search').split(',');
 
     searchColumns.forEach((column, index) => {
 
@@ -620,12 +620,12 @@ export const filterTable = (table, form, wrapper) => {
       let isMatched = false;
       filterValue.forEach((filter, index) => {
 
-        let filterTd = row.querySelector(`[data-label="${key}"]`)
+        const filterTd = row.querySelector(`[data-label="${key}"]`)
 
         if(filter.includes('-date-from')){
 
-          let fromDate = new Date(filter.replace('-date-from',''));
-          let checkDate = new Date(filterTd.textContent.toLowerCase());
+          const fromDate = new Date(filter.replace('-date-from',''));
+          const checkDate = new Date(filterTd.textContent.toLowerCase());
 
           fromDate.setHours(0, 0, 0, 0);
           checkDate.setHours(0, 0, 0, 0);
@@ -642,8 +642,8 @@ export const filterTable = (table, form, wrapper) => {
         }
         else if(filter.includes('-date-to')){
 
-          let toDate = new Date(filter.replace('-date-to',''));
-          let checkDate = new Date(filterTd.textContent.toLowerCase());
+          const toDate = new Date(filter.replace('-date-to',''));
+          const checkDate = new Date(filterTd.textContent.toLowerCase());
 
           toDate.setHours(0, 0, 0, 0);
           checkDate.setHours(0, 0, 0, 0);
@@ -665,16 +665,16 @@ export const filterTable = (table, form, wrapper) => {
         }
         else if(filter && filter == "$yesterday"){
 
-          let yesterday = new Date();
+          const yesterday = new Date();
           yesterday.setDate(yesterday.getDate() - 1);
           filter = formatCell('date', yesterday);
         }
         else if(filter && (filter == "$thisWeek" || filter == "$lastWeek")){
 
-          let today = new Date();
-          let mondayThisWeek = new Date(today.setDate(today.getDate() - (today.getDay()-1)));
-          let sundayThisWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
-          let checkDate = new Date(filterTd.textContent.toLowerCase());
+          const today = new Date();
+          const mondayThisWeek = new Date(today.setDate(today.getDate() - (today.getDay()-1)));
+          const sundayThisWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
+          const checkDate = new Date(filterTd.textContent.toLowerCase());
 
           today.setHours(0, 0, 0, 0);
           mondayThisWeek.setHours(0, 0, 0, 0);
@@ -685,8 +685,8 @@ export const filterTable = (table, form, wrapper) => {
             isMatched = (checkDate >= mondayThisWeek && checkDate <= sundayThisWeek);
           }
           else {
-            let mondayLastWeek = new Date(mondayThisWeek.setDate(mondayThisWeek.getDate() - 7));
-            let sundayLastWeek = new Date(sundayThisWeek.setDate(sundayThisWeek.getDate() - 7));
+            const mondayLastWeek = new Date(mondayThisWeek.setDate(mondayThisWeek.getDate() - 7));
+            const sundayLastWeek = new Date(sundayThisWeek.setDate(sundayThisWeek.getDate() - 7));
 
             mondayLastWeek.setHours(0, 0, 0, 0);
             sundayLastWeek.setHours(0, 0, 0, 0);
@@ -696,11 +696,11 @@ export const filterTable = (table, form, wrapper) => {
         }
         else if(filter && filter == "$thisMonth"){
 
-          let today = new Date(), year = today.getFullYear(), month = today.getMonth();
+          const today = new Date(), year = today.getFullYear(), month = today.getMonth();
 
-          var firstDayMonth = new Date(year, month, 1);
-          var lastDayMonth = new Date(year, month + 1, 0);
-          let checkDate = new Date(filterTd.textContent.toLowerCase());
+          const firstDayMonth = new Date(year, month, 1);
+          const lastDayMonth = new Date(year, month + 1, 0);
+          const checkDate = new Date(filterTd.textContent.toLowerCase());
 
           firstDayMonth.setHours(0, 0, 0, 0);
           lastDayMonth.setHours(0, 0, 0, 0);
@@ -710,11 +710,11 @@ export const filterTable = (table, form, wrapper) => {
         }
         else if(filter && filter == "$lastMonth"){
 
-          let today = new Date(), year = today.getFullYear(), month = today.getMonth();
+          const today = new Date(), year = today.getFullYear(), month = today.getMonth();
 
-          var firstDayLastMonth = new Date(year, month - 1, 1);
-          var lastDayLastMonth = new Date(year, month, 0);
-          let checkDate = new Date(filterTd.textContent.toLowerCase());
+          const firstDayLastMonth = new Date(year, month - 1, 1);
+          const lastDayLastMonth = new Date(year, month, 0);
+          const checkDate = new Date(filterTd.textContent.toLowerCase());
 
           firstDayLastMonth.setHours(0, 0, 0, 0);
           lastDayLastMonth.setHours(0, 0, 0, 0);
@@ -744,7 +744,7 @@ export const filterTable = (table, form, wrapper) => {
       
     searches.forEach((search, index) => {
 
-      let searchTd = row.querySelector(`[data-label="${search.column}"]`);
+      const searchTd = row.querySelector(`[data-label="${search.column}"]`);
 
       if(searchTd && search.value.length >= 3 && searchTd.textContent.toLowerCase().includes(search.value.toLowerCase())){
         isSearched = true;
@@ -765,7 +765,7 @@ export const filterTable = (table, form, wrapper) => {
     row.classList.add('filtered--matched');
 
     // pagination bit 
-    let matchesPage = Math.ceil(matched/showRows);
+    const matchesPage = Math.ceil(matched/showRows);
     if(matchesPage == parseInt(page)){
       row.classList.add('filtered--show');
     }
@@ -785,7 +785,7 @@ export const populateDataQueries = (table,form,wrapper) => {
 
   dataQueries.forEach((queryElement, index) => {
 
-    let query = queryElement.getAttribute('data-query');
+    const query = queryElement.getAttribute('data-query');
     let numberOfMatchedRows = 0;
 
     if(query == 'total'){
@@ -796,7 +796,7 @@ export const populateDataQueries = (table,form,wrapper) => {
     }
     else if(!query.includes(' == ') && query.includes(' & ')){
 
-      let queries = query.split(' & ');
+      const queries = query.split(' & ');
       let selector = '';
 
       queries.forEach(element => {
@@ -811,7 +811,7 @@ export const populateDataQueries = (table,form,wrapper) => {
     }
     else if(query.includes(' && ')){
 
-      let queries = query.split(' && ');
+      const queries = query.split(' && ');
 
       numberOfMatchedRows = Array.from(table.querySelectorAll(`tbody tr:not(.filtered)`)).filter(function(row){
 
@@ -819,7 +819,7 @@ export const populateDataQueries = (table,form,wrapper) => {
 
         for (const [index, value] of Object.entries(queries)) {
           
-          let queryParts = value.split(' == ');
+          const queryParts = value.split(' == ');
 
           if(!row.querySelector(`td[data-label="${queryParts[0]}"]`) || row.querySelector(`td[data-label="${queryParts[0]}"]`).textContent != `${queryParts[1]}`)
             matched = false;
@@ -831,7 +831,7 @@ export const populateDataQueries = (table,form,wrapper) => {
     }
     else {
 
-      let queryParts = query.split(' == ');
+      const queryParts = query.split(' == ');
       numberOfMatchedRows = Array.from(table.querySelectorAll(`tbody tr.filtered--matched td[data-label="${queryParts[0]}"], tbody tr[data-filtered-by="${queryParts[0]}"] td[data-label="${queryParts[0]}"]`)).filter(function(element){
         return element.textContent === queryParts[1];
       }).length;
@@ -856,8 +856,8 @@ export const addPaginationEventListeners = function(table, form, pagination, wra
 
   pagination.addEventListener('update-page', (event) => {
 
-    let paginationInput = form.querySelector('[data-pagination]');
-    let newPage = event.detail.page;
+    const paginationInput = form.querySelector('[data-pagination]');
+    const newPage = event.detail.page;
 
     // Set the filter value
     paginationInput.value = newPage;
@@ -883,8 +883,8 @@ export const addPaginationEventListeners = function(table, form, pagination, wra
 
   pagination.addEventListener('update-show', (event) => {
 
-    let showInput = form.querySelector('[data-show]');
-    let showRows = event.detail.show;
+    const showInput = form.querySelector('[data-show]');
+    const showRows = event.detail.show;
     showInput.value = showRows;
     wrapper.setAttribute('data-show', showRows);
     form.dispatchEvent(new Event("submit"));
@@ -905,17 +905,17 @@ export const addExportEventListeners = (button, table) => {
 
 export const exportAsCSV = function(table){
 
-  var csvData = [];
+  let csvData = [];
   // Get each row data
-  var rows = table.getElementsByTagName('tr');
-  for (var i = 0; i < rows.length; i++) {
+  const rows = table.getElementsByTagName('tr');
+  for (let i = 0; i < rows.length; i++) {
 
     // Get each column data
-    var cols = rows[i].querySelectorAll('td,th');
+    const cols = rows[i].querySelectorAll('td,th');
 
     // Stores each csv row data
-    var csvRow = [];
-    for (var j = 0; j < cols.length; j++) {
+    const csvRow = [];
+    for (let j = 0; j < cols.length; j++) {
 
       // Get the text data of each cell of a row and push it to csvrow
       csvRow.push(`"${cols[j].textContent}"`);
@@ -929,14 +929,14 @@ export const exportAsCSV = function(table){
   csvData = csvData.join('\n');
   
   // Create CSV file object and feed our csvData into it
-  let CSVFile = new Blob([csvData], {
+  const CSVFile = new Blob([csvData], {
     type: "text/csv"
   });
 
   // Create to temporary link to initiate download process
-  var tempLink = document.createElement('a');
+  const tempLink = document.createElement('a');
   tempLink.download = "export.csv";
-  var url = window.URL.createObjectURL(CSVFile);
+  const url = window.URL.createObjectURL(CSVFile);
   tempLink.href = url;
 
   // This link should not be displayed
@@ -964,7 +964,7 @@ export const makeTableFunctional = function(table, form, pagination, wrapper){
     function outputsize() {
 
       Array.from(table.querySelectorAll('tr')).forEach((row, index) => {
-        let rowHeight = row.offsetHeight;
+        const rowHeight = row.offsetHeight;
         row.style.setProperty("--row-height", `${rowHeight}px`);
       });
     }
@@ -975,10 +975,10 @@ export const makeTableFunctional = function(table, form, pagination, wrapper){
 
 const filterFilters = function(form){
 
-  let filters = new Object();
+  const filters = new Object();
 
   // Filter
-  let filterInputs = Array.from(form.querySelectorAll('[data-filter]'));
+  const filterInputs = Array.from(form.querySelectorAll('[data-filter]'));
 
   filterInputs.forEach((filterInput, index) => {
 
@@ -993,7 +993,7 @@ const filterFilters = function(form){
 
     if (filterInput && filterInput.value) {
 
-      let dataFilter = filterInput.getAttribute('data-filter');
+      const dataFilter = filterInput.getAttribute('data-filter');
       let filterValue = filterInput.value;
 
       if(filterInput.hasAttribute('data-date-from'))
@@ -1003,7 +1003,7 @@ const filterFilters = function(form){
         filterValue += '-date-to'
 
       if(!filters[dataFilter])
-        filters[dataFilter] = new Array();
+        filters[dataFilter] = [];
     
       filters[dataFilter].push(filterValue);
     }
@@ -1014,16 +1014,16 @@ const filterFilters = function(form){
 
 export const loadAjaxTable = async function (table, form, pagination, wrapper){
   
-  let formData = new FormData(form);
-  let queryString = new URLSearchParams(formData).toString();
-  let columns = table.querySelectorAll('thead tr th:not(.expand-button-heading)');
-  let tbody = table.querySelector('tbody');
-  let ajaxURL = form.getAttribute('data-ajax');
+  const formData = new FormData(form);
+  const queryString = new URLSearchParams(formData).toString();
+  const columns = table.querySelectorAll('thead tr th:not(.expand-button-heading)');
+  const tbody = table.querySelector('tbody');
+  const ajaxURL = form.getAttribute('data-ajax');
 
   wrapper.classList.add('table--loading');
   
   // Display the filter count
-  let filters = filterFilters(form);
+  const filters = filterFilters(form);
 
   Array.from(form.querySelectorAll('[data-filter-count]')).forEach((element, index) => {
     element.innerHTML = '';
@@ -1076,14 +1076,14 @@ export const loadAjaxTable = async function (table, form, pagination, wrapper){
     })
     .then((response) => response.json()).then((response) => {
 
-      let schema = form.hasAttribute('data-schema') ? form.getAttribute('data-schema') : 'data';
-      let totalNumberSchema = form.hasAttribute('data-schema-total') ? form.getAttribute('data-schema-total') : 'meta.total';
-      let currentPageSchema = form.hasAttribute('data-schema-page') ? form.getAttribute('data-schema-page') : 'meta.current_page';
+      const schema = form.hasAttribute('data-schema') ? form.getAttribute('data-schema') : 'data';
+      const totalNumberSchema = form.hasAttribute('data-schema-total') ? form.getAttribute('data-schema-total') : 'meta.total';
+      const currentPageSchema = form.hasAttribute('data-schema-page') ? form.getAttribute('data-schema-page') : 'meta.current_page';
 
-      let totalNumber = resolvePath(response, totalNumberSchema, 15);
-      let currentPage = resolvePath(response, currentPageSchema, 1);
-      let data = resolvePath(response, schema);
-      let emptyMsg = wrapper.hasAttribute('data-empty-msg') ? wrapper.getAttribute('data-empty-msg') : "No results found";
+      const totalNumber = resolvePath(response, totalNumberSchema, 15);
+      const currentPage = resolvePath(response, currentPageSchema, 1);
+      const data = resolvePath(response, schema);
+      const emptyMsg = wrapper.hasAttribute('data-empty-msg') ? wrapper.getAttribute('data-empty-msg') : "No results found";
       
       if (data) {
 
@@ -1091,11 +1091,11 @@ export const loadAjaxTable = async function (table, form, pagination, wrapper){
 
         data.forEach((row, index) => {
 
-          var table_row = document.createElement('tr');
+          const table_row = document.createElement('tr');
 
           columns.forEach((col, index) => {
             let cellOutput = '';
-            var table_cell  = document.createElement('td');
+            const table_cell  = document.createElement('td');
             // Add some data to help with the mobile layout design
             table_cell.setAttribute('data-label',col.innerText);
 
@@ -1109,12 +1109,12 @@ export const loadAjaxTable = async function (table, form, pagination, wrapper){
             if(col.hasAttribute('data-output-array')){
               
               var cellTemplate = col.getAttribute('data-output');
-              let arrValue = resolvePath(row, cellTemplate.replace('{','').replace('}',''));
+              const arrValue = resolvePath(row, cellTemplate.replace('{','').replace('}',''));
 
               cellOutput = "";
               arrValue.forEach((rowValue, i) => {
 
-                let cellTemplateValue = col.getAttribute('data-output-array');
+                const cellTemplateValue = col.getAttribute('data-output-array');
                 let cellOutputValue = "";
 
                 // If we need to transform some of the data
@@ -1159,7 +1159,7 @@ export const loadAjaxTable = async function (table, form, pagination, wrapper){
 
         Array.from(form.querySelectorAll('[data-ajax-query]')).forEach((queryElement, index) => {
 
-          let totalNumber = resolvePath(response, queryElement.getAttribute('data-ajax-query'), '');
+          const totalNumber = resolvePath(response, queryElement.getAttribute('data-ajax-query'), '');
 
           if(queryElement.hasAttribute('data-total'))
             queryElement.setAttribute('data-total', totalNumber);

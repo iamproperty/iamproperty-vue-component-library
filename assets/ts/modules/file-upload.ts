@@ -10,8 +10,8 @@ function fileupload(form, callback) {
   input.addEventListener("change", function( e ) {
     // prevent default to allow drop
 
-    let url = form.getAttribute('action');
-    let formData = new FormData(form);
+    const url = form.getAttribute('action');
+    const formData = new FormData(form);
 
     input.setAttribute('disabled', 'disabled');
 

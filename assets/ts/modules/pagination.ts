@@ -6,11 +6,11 @@ const createPaginationButttons = function(controller: any,pagination: any){
   if(!controller.getAttribute('data-page'))
     controller.setAttribute('data-page', 1);
 
-  let currentPage = controller.getAttribute('data-page');
-  let numberPages = controller.getAttribute('data-pages');
-  let numberRows = controller.getAttribute('data-total');
-  let showRows = controller.getAttribute('data-show');
-  let addRows = controller.getAttribute('data-increment');
+  const currentPage = controller.getAttribute('data-page');
+  const numberPages = controller.getAttribute('data-pages');
+  const numberRows = controller.getAttribute('data-total');
+  const showRows = controller.getAttribute('data-show');
+  const addRows = controller.getAttribute('data-increment');
 
   if(numberPages <= 1){
     

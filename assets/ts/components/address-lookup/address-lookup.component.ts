@@ -81,7 +81,7 @@ class iamAddressLookup extends HTMLElement {
 
     function checkFilled(component){
 
-      let preFilledAddress = component.shadowRoot.querySelector('.pre-filled-address');
+      const preFilledAddress = component.shadowRoot.querySelector('.pre-filled-address');
       let preFilled = true;
       preFilledAddress.innerHTML = "";
 
@@ -112,8 +112,8 @@ class iamAddressLookup extends HTMLElement {
 
     if(this.hasAttribute('data-use')){
 
-      let useLabel = this.hasAttribute('data-use-label') ? this.getAttribute('data-use-label') : 'Use saved address';
-      let useCheckbox =`<div><input type="checkbox" name="use" id="use" value="yes"><label for="use">${useLabel}</label></div>`;
+      const useLabel = this.hasAttribute('data-use-label') ? this.getAttribute('data-use-label') : 'Use saved address';
+      const useCheckbox =`<div><input type="checkbox" name="use" id="use" value="yes"><label for="use">${useLabel}</label></div>`;
       
       lookupWrapper.insertAdjacentHTML('afterbegin',useCheckbox);
         
@@ -121,18 +121,18 @@ class iamAddressLookup extends HTMLElement {
 
         if (event && event.target instanceof HTMLElement && event.target.closest('[name="use"]')){
 
-          let checkbox = event.target.closest('[name="use"]');
+          const checkbox = event.target.closest('[name="use"]');
 
           if(checkbox.checked){
                   
             lookupWrapper.classList.add('js-hide');
             manualWrapper.classList.remove('js-hide');
 
-            let values = JSON.parse(this.getAttribute('data-use'));
+            const values = JSON.parse(this.getAttribute('data-use'));
           
             Object.keys(values).forEach((key, index) => {
   
-              let value = values[key];
+              const value = values[key];
               if(this.querySelector(`[data-name="${key}"]`))
                 this.querySelector(`[data-name="${key}"]`).value = value;
               else if(this.querySelector(`[name="${key}"]`))
@@ -199,11 +199,11 @@ class iamAddressLookup extends HTMLElement {
           lookupWrapper.classList.add('js-hide');
           manualWrapper.classList.remove('js-hide');
 
-          let values = JSON.parse(list.querySelector(`[value="${lookup.value}"]`).getAttribute('data-values'));
+          const values = JSON.parse(list.querySelector(`[value="${lookup.value}"]`).getAttribute('data-values'));
           
           Object.keys(values).forEach((key, index) => {
 
-            let value = values[key];
+            const value = values[key];
             if(this.querySelector(`[data-name="${key}"]`) && value != '')
               this.querySelector(`[data-name="${key}"]`).value = value;
             else if(this.querySelector(`[data-name-alt="${key}"]`) && value != '')
@@ -269,11 +269,11 @@ class iamAddressLookup extends HTMLElement {
 
             // Deal with agent platform response
             if(typeof address.value == "object"){
-              let values = JSON.stringify(address.value);
+              const values = JSON.stringify(address.value);
               listString += `<option value="${address['label']}, ${postcode}" data-values='${values}'></option>`;
             }
             else {
-              let values = JSON.stringify(address);
+              const values = JSON.stringify(address);
 
               if(component.hasAttribute('data-display-text')){
 

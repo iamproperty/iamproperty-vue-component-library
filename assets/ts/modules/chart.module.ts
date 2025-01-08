@@ -7,14 +7,14 @@ export const addClasses = (chartElement:any, chartOuter:any) => {
   for (let i = 1; i <= 10; i++) {
     if(chartElement.hasAttribute(`data-colour-${i}`)){
 
-      let colour = chartElement.getAttribute(`data-colour-${i}`);
+      const colour = chartElement.getAttribute(`data-colour-${i}`);
       chartElement.style.setProperty(`--chart-colour-${i}`, `var(--chart-colour-${colour})`);
       chartElement.style.setProperty(`--chart-colour-${i}-hover`, `var(--chart-colour-${colour}-hover)`);
     }
 
     Array.from(chartOuter.querySelectorAll(`[data-colour-${i}]`)).forEach((element:HTMLElement) => {
       
-      let colour = element.getAttribute(`data-colour-${i}`);
+      const colour = element.getAttribute(`data-colour-${i}`);
       element.style.setProperty(`--chart-colour-${i}-set`, `var(--chart-colour-${colour})`);
       element.style.setProperty(`--chart-colour-${i}-hover`, `var(--chart-colour-${colour}-hover)`);
     });
@@ -40,7 +40,7 @@ export const setupChart = (chartElement:any,chartOuter:any,tableElement:any) => 
   Array.from(chartOuter.querySelectorAll(':scope > input[type="checkbox"],:scope > input[type="radio"]')).map((element: any) => { element.remove(); })
   // #endregion
 
-  let {xaxis} = getChartData(chartElement);
+  const {xaxis} = getChartData(chartElement);
 
   setCellData(chartElement,tableElement);
 
@@ -59,23 +59,23 @@ export const setupChart = (chartElement:any,chartOuter:any,tableElement:any) => 
 // #region Event handlers and observers
 export const setEventListener = function(chartElement:any, chartOuter:any) {
 
-  let chart = chartOuter.querySelector('.chart');
+  const chart = chartOuter.querySelector('.chart');
   chart.addEventListener('mousemove', (event:any) => {
     
     if (event && event.target instanceof HTMLElement && event.target.closest('td:not(:first-child')){
 
-      let column = event.target.closest('td:not(:first-child')
+      const column = event.target.closest('td:not(:first-child')
 
-      var rect = column.getBoundingClientRect();
+      const rect = column.getBoundingClientRect();
         
-      let x = event.clientX - rect.left;
-      let y = event.clientY - rect.top;
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
       chart.setAttribute('style', `--cursor-x: ${x}px; --cursor-y: ${y}px;`)
     }
   });
 
   // Use the part for the chart items to pass through states to the pages CSS
-  let labels = chartOuter.querySelectorAll('label');
+  const labels = chartOuter.querySelectorAll('label');
 
   Array.from(labels).forEach((label:HTMLElement) => {
           
@@ -86,12 +86,12 @@ export const setEventListener = function(chartElement:any, chartOuter:any) {
   });
 
   
-  let table = chartElement.querySelector('table');
-  let shadowTable = chartOuter.querySelector('table');
+  const table = chartElement.querySelector('table');
+  const shadowTable = chartOuter.querySelector('table');
 
   chartOuter.addEventListener('change', function(event:any){
 
-    let eventTarget = event.target;
+    const eventTarget = event.target;
 
     const customEvent = new CustomEvent("view-change", {  detail: { 
                                                             'data-dataset': eventTarget.getAttribute('data-dataset'), 
@@ -119,8 +119,8 @@ export const setEventListener = function(chartElement:any, chartOuter:any) {
 
 export const setEventObservers = function(chartElement:any,chartOuter:any) {
 
-  let table = chartElement.querySelector('table');
-  let shadowTable = chartOuter.querySelector('table');
+  const table = chartElement.querySelector('table');
+  const shadowTable = chartOuter.querySelector('table');
 
   const attributesUpdated = (mutationList:any, observer:any) => {
 
@@ -159,8 +159,8 @@ export const setEventObservers = function(chartElement:any,chartOuter:any) {
   };
 
 
-  let observer = new MutationObserver(tableUpdated);
-  let observer2 = new MutationObserver(attributesUpdated);
+  const observer = new MutationObserver(tableUpdated);
+  const observer2 = new MutationObserver(attributesUpdated);
 
   observer.observe(table, { characterData: true, subtree: true });
   observer2.observe(chartElement, { attributes: true });
@@ -173,16 +173,16 @@ export const setEventObservers = function(chartElement:any,chartOuter:any) {
 export const getChartData = function(chartElement:any){
 
 
-  let table = chartElement.shadowRoot.querySelector('.chart__wrapper table');
+  const table = chartElement.shadowRoot.querySelector('.chart__wrapper table');
 
-  let min:any = chartElement.hasAttribute('data-min') ? chartElement.getAttribute('data-min') : 0;
-  let max:any = chartElement.hasAttribute('data-max') ? chartElement.getAttribute('data-max') : getLargestValue(chartElement,table);
+  const min:any = chartElement.hasAttribute('data-min') ? chartElement.getAttribute('data-min') : 0;
+  const max:any = chartElement.hasAttribute('data-max') ? chartElement.getAttribute('data-max') : getLargestValue(chartElement,table);
   //let type:string = chartElement.hasAttribute('data-type') ? chartElement.getAttribute('data-type') : 'column';
-  let yaxis:any = chartElement.hasAttribute('data-yaxis') ? chartElement.getAttribute('data-yaxis').split(',') : [];
-  let guidelines:any = chartElement.hasAttribute('data-guidelines') ? chartElement.getAttribute('data-guidelines').split(',') : [];
+  const yaxis:any = chartElement.hasAttribute('data-yaxis') ? chartElement.getAttribute('data-yaxis').split(',') : [];
+  const guidelines:any = chartElement.hasAttribute('data-guidelines') ? chartElement.getAttribute('data-guidelines').split(',') : [];
   //let targets:any = chartElement.hasAttribute('data-targets') ? JSON.parse(chartElement.getAttribute('data-targets')) : null;
   //let events:any = chartElement.hasAttribute('data-events') ? JSON.parse(chartElement.getAttribute('data-events')) : null;
-  let xaxis:any = chartElement.hasAttribute('data-xaxis') ? chartElement.getAttribute('data-xaxis').split(',') : null;
+  const xaxis:any = chartElement.hasAttribute('data-xaxis') ? chartElement.getAttribute('data-xaxis').split(',') : null;
   //let increment = chartElement.hasAttribute('data-increment') ? chartElement.getAttribute('data-increment'): null;
   
   //let start:any = chartElement.hasAttribute('data-start') ? chartElement.getAttribute('data-start') : 0;
@@ -199,14 +199,14 @@ function getLargestValue(chartElement:any,table:any){
 
   const selector = chartElement.classList.contains('chart--stacked') ? 'tbody tr' : 'tbody td:not(:first-child)';
 
-  let values = Array.from(table.querySelectorAll(selector)).map((element: any) => {
+  const values = Array.from(table.querySelectorAll(selector)).map((element: any) => {
 
-    let currentValue = element.getAttribute('data-numeric');
+    const currentValue = element.getAttribute('data-numeric');
 
     return currentValue;
   });
 
-  let largestValue:number = Math.max(...values);
+  const largestValue:number = Math.max(...values);
 
   // TO DO round to the nearest 10, 100, 1000 and so on
   return Math.ceil(largestValue);
@@ -257,12 +257,12 @@ export const setCellData = function(chartElement:any,table:any){
     // Set the data numeric value if not set
     Array.from(tr.querySelectorAll('td:not(:first-child)')).forEach((td:any) => {
 
-      let value = parseFloat(td.textContent.replace('£','').replace('%','').replace(',',''));
+      const value = parseFloat(td.textContent.replace('£','').replace('%','').replace(',',''));
     
       td.setAttribute('data-numeric',value);
       td.setAttribute('data-value',td.textContent);
 
-      let display = getComputedStyle(td).display;
+      const display = getComputedStyle(td).display;
 
       if(display != 'none')
         rowValue += value;
@@ -271,16 +271,16 @@ export const setCellData = function(chartElement:any,table:any){
     tr.setAttribute('data-numeric',rowValue);
   });
 
-  let {min, max} = getChartData(chartElement);
+  const {min, max} = getChartData(chartElement);
   
   Array.from(table.querySelectorAll('tbody tr')).forEach((tr:any, index) => {
 
-    let group = tr.querySelector('td:first-child, th:first-child') ? tr.querySelector('td:first-child, th:first-child').textContent : '';
+    const group = tr.querySelector('td:first-child, th:first-child') ? tr.querySelector('td:first-child, th:first-child').textContent : '';
 
     tr.setAttribute('part','group');
 
     
-    let percent = ((tr.getAttribute('data-numeric') - min)/(max - min)) * 100;
+    const percent = ((tr.getAttribute('data-numeric') - min)/(max - min)) * 100;
 
     tr.style.setProperty('--percent',`${percent}%`)
 
@@ -297,11 +297,11 @@ export const setCellData = function(chartElement:any,table:any){
     });
 
 
-    let rowMin = tr.hasAttribute('data-min') ? tr.getAttribute('data-min') : min;
-    let rowMax = tr.hasAttribute('data-max') ? tr.getAttribute('data-max') : max;
+    const rowMin = tr.hasAttribute('data-min') ? tr.getAttribute('data-min') : min;
+    const rowMax = tr.hasAttribute('data-max') ? tr.getAttribute('data-max') : max;
 
     if(rowMin < 0){
-      let minBottom = Math.abs(((rowMin)/(rowMax - rowMin))*100);
+      const minBottom = Math.abs(((rowMin)/(rowMax - rowMin))*100);
       chartElement.setAttribute('style',`--min-bottom: ${minBottom}%;`);
     }
 
@@ -312,7 +312,7 @@ export const setCellData = function(chartElement:any,table:any){
     // Add css vars to cells
     Array.from(tr.querySelectorAll('td[data-numeric]:not([data-label="Min"]):not([data-label="Max"]):not(:first-child)')).forEach((td:any) => {
 
-      let display = getComputedStyle(td).display;
+      const display = getComputedStyle(td).display;
       if(display == 'none')
         return;
       
@@ -325,7 +325,7 @@ export const setCellData = function(chartElement:any,table:any){
 
       if(!td.hasAttribute('style')){
         
-        let { percent, bottom, axis } = getValues(value,rowMin,rowMax,start);
+        const { percent, bottom, axis } = getValues(value,rowMin,rowMax,start);
 
         td.setAttribute('data-percent',percent)
         td.setAttribute("style",`--bottom:${bottom}%;--percent:${percent}%;--axis:${axis}%;`);
@@ -336,9 +336,9 @@ export const setCellData = function(chartElement:any,table:any){
 
 export const setLongestLabel = function(chartOuter:any){
 
-  let chartWrapper = chartOuter.querySelector('.chart__wrapper');
-  let chartSpacer = chartOuter.querySelector('.chart__spacer span');
-  let table = chartOuter.querySelector('.chart table');
+  const chartWrapper = chartOuter.querySelector('.chart__wrapper');
+  const chartSpacer = chartOuter.querySelector('.chart__spacer span');
+  const table = chartOuter.querySelector('.chart table');
   // set the longest label attr so that the bar chart knows what margin to set on the left
   let longestLabel = '';
   Array.from(table.querySelectorAll('tbody tr td:first-child')).forEach((td: any) => {
@@ -353,8 +353,8 @@ export const setLongestLabel = function(chartOuter:any){
 
 export const setLongestValue = function(chartOuter:any){
 
-  let chartWrapper = chartOuter.querySelector('.chart__wrapper');
-  let table = chartOuter.querySelector('.chart table');
+  const chartWrapper = chartOuter.querySelector('.chart__wrapper');
+  const table = chartOuter.querySelector('.chart table');
 
   let longestValue = '';
   Array.from(table.querySelectorAll('tbody tr td:not(:first-child) span')).forEach((td: any) => {
@@ -375,7 +375,7 @@ export const createChartKey = function(chartOuter:any,tableElement:any,chartKey:
   let previousInput:any;
 
 
-  let headings = Array.from(tableElement.querySelectorAll('thead th'));
+  const headings = Array.from(tableElement.querySelectorAll('thead th'));
 
   headings.forEach((arrayElement:any , index) => {
 
@@ -394,7 +394,7 @@ export const createChartKey = function(chartOuter:any,tableElement:any,chartKey:
 }
 
 function createChartKeyItem(chartID:string,index:number,text:Array<string>,chartKey:any,chartOuter:any,previousInput:any){
-  let input = document.createElement('input');
+  const input = document.createElement('input');
   input.setAttribute('name',`${chartID}-dataset-${index}`);
   input.setAttribute('id',`${chartID}-dataset-${index}`);
   input.setAttribute('data-dataset',`${index}`);
@@ -410,7 +410,7 @@ function createChartKeyItem(chartID:string,index:number,text:Array<string>,chart
 
   previousInput = input;
 
-  let label = document.createElement('label');
+  const label = document.createElement('label');
   label.setAttribute('class',`key btn btn-action`);
   label.setAttribute('for',`${chartID}-dataset-${index}`);
   label.setAttribute('data-label',`${text}`);
@@ -429,27 +429,27 @@ export const createChartGuidelines = function(chartElement:any,chartGuidelines:a
     guidelines = yaxis;
 
   chartGuidelines.innerHTML = '';
-  for (var i = 0; i < guidelines.length; i++) {
+  for (let i = 0; i < guidelines.length; i++) {
 
-    let value = parseFloat(guidelines[i].replace('£','').replace('%','').replace(',',''));
+    const value = parseFloat(guidelines[i].replace('£','').replace('%','').replace(',',''));
 
 
 
-    let { axis } = getValues(value,min,max);
+    const { axis } = getValues(value,min,max);
     chartGuidelines.innerHTML += `<div class="guideline" style="--percent:${axis}%;">${yaxis.indexOf(guidelines[i]) != -1 ? `<span>${guidelines[i]}</span>` : ''}</div>`;
   }
 }
 
 export const createChartYaxis = function(chartElement:any,chartYaxis:any){
 
-  let {min, max, yaxis} = getChartData(chartElement);
+  const {min, max, yaxis} = getChartData(chartElement);
 
   chartYaxis.innerHTML = '';
-  for (var i = 0; i < yaxis.length; i++) {
+  for (let i = 0; i < yaxis.length; i++) {
 
-    let value = parseFloat(yaxis[i].replace('£','').replace('%',''));
+    const value = parseFloat(yaxis[i].replace('£','').replace('%',''));
 
-    let { axis } = getValues(value,min,max);
+    const { axis } = getValues(value,min,max);
     chartYaxis.innerHTML += `<div class="axis__point" style="--percent:${axis}%;"><span>${yaxis[i]}</span></div>`;
   }
 }
@@ -473,7 +473,7 @@ export const createTooltips = function(chartOuter:any) {
 
   Array.from(titles).forEach((title:HTMLElement) => {
           
-    let tooltipId = `tooltip-${Date.now()}-${Math.floor(Math.random() * 100)}`;
+    const tooltipId = `tooltip-${Date.now()}-${Math.floor(Math.random() * 100)}`;
 
     title.innerHTML = `<button class="tooltip" popovertarget="${tooltipId}" part="tooltip" style="anchor-name: --${tooltipId};">${title.textContent}</button><span id="${tooltipId}" style="position-anchor: --${tooltipId};" popover part="tooltip__content" class="tooltip__content">${title.getAttribute('title')}</span>`;
 

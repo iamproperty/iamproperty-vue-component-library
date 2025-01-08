@@ -20,7 +20,7 @@ export const setupChart = (chartElement:any,chartOuter:any,tableElement:any) => 
 
   createTypeSwitcher(chartElement,chartKey,chartOptions);
 
-  let {xaxis,type} = getChartData(chartElement,chartOuter);
+  const {xaxis,type} = getChartData(chartElement,chartOuter);
 
   setCellData(chartElement,chartOuter,tableElement);
 
@@ -65,11 +65,11 @@ export const setEventHandlers = function(chartElement:any,chartOuter:any) {
   const showData = chartOuter.querySelectorAll(':scope > input[type="checkbox"]');
 
 
-  let {type} = getChartData(chartElement,chartOuter);
+  const {type} = getChartData(chartElement,chartOuter);
 
   const availableTypes = chartElement.hasAttribute('data-types') ? chartElement.getAttribute('data-types').split(',') : [type];
 
-  for (var i = 0; i < showData.length; i++) {
+  for (let i = 0; i < showData.length; i++) {
     showData[i].addEventListener('change', function() {
 
       if(availableTypes.includes('pie'))
@@ -94,8 +94,8 @@ export const setEventObservers = function(chartElement:any,chartOuter:any) {
   if(chartElement.hasAttribute('data-series'))
     return false;
 
-  let table = chartElement.querySelector('table');
-  let newTable = chartOuter.querySelector('table');
+  const table = chartElement.querySelector('table');
+  const newTable = chartOuter.querySelector('table');
 
   const attributesUpdated = (mutationList:any, observer:any) => {
 
@@ -134,8 +134,8 @@ export const setEventObservers = function(chartElement:any,chartOuter:any) {
   };
 
 
-  let observer = new MutationObserver(tableUpdated);
-  let observer2 = new MutationObserver(attributesUpdated);
+  const observer = new MutationObserver(tableUpdated);
+  const observer2 = new MutationObserver(attributesUpdated);
 
   observer.observe(table, { characterData: true, subtree: true });
   observer2.observe(chartElement, { attributes: true });
@@ -148,31 +148,31 @@ export const setEventObservers = function(chartElement:any,chartOuter:any) {
 export const getChartData = function(chartElement:any,chartOuter:any){
 
 
-  let table = chartOuter.querySelector('.chart__wrapper table');
+  const table = chartOuter.querySelector('.chart__wrapper table');
 
-  let min:any = chartElement.hasAttribute('data-min') ? chartElement.getAttribute('data-min') : 0;
-  let max:any = chartElement.hasAttribute('data-max') ? chartElement.getAttribute('data-max') : getLargestValue(table);
-  let type:string = chartElement.hasAttribute('data-type') ? chartElement.getAttribute('data-type') : 'column';
-  let yaxis:any = chartElement.hasAttribute('data-yaxis') ? chartElement.getAttribute('data-yaxis').split(',') : [];
-  let guidelines:any = chartElement.hasAttribute('data-guidelines') ? chartElement.getAttribute('data-guidelines').split(',') : [];
-  let targets:any = chartElement.hasAttribute('data-targets') ? JSON.parse(chartElement.getAttribute('data-targets')) : null;
-  let events:any = chartElement.hasAttribute('data-events') ? JSON.parse(chartElement.getAttribute('data-events')) : null;
-  let xaxis:any = chartElement.hasAttribute('data-xaxis') ? chartElement.getAttribute('data-xaxis').split(',') : null;
-  let increment = chartElement.hasAttribute('data-increment') ? chartElement.getAttribute('data-increment'): null;
+  const min:any = chartElement.hasAttribute('data-min') ? chartElement.getAttribute('data-min') : 0;
+  const max:any = chartElement.hasAttribute('data-max') ? chartElement.getAttribute('data-max') : getLargestValue(table);
+  const type:string = chartElement.hasAttribute('data-type') ? chartElement.getAttribute('data-type') : 'column';
+  const yaxis:any = chartElement.hasAttribute('data-yaxis') ? chartElement.getAttribute('data-yaxis').split(',') : [];
+  const guidelines:any = chartElement.hasAttribute('data-guidelines') ? chartElement.getAttribute('data-guidelines').split(',') : [];
+  const targets:any = chartElement.hasAttribute('data-targets') ? JSON.parse(chartElement.getAttribute('data-targets')) : null;
+  const events:any = chartElement.hasAttribute('data-events') ? JSON.parse(chartElement.getAttribute('data-events')) : null;
+  const xaxis:any = chartElement.hasAttribute('data-xaxis') ? chartElement.getAttribute('data-xaxis').split(',') : null;
+  const increment = chartElement.hasAttribute('data-increment') ? chartElement.getAttribute('data-increment'): null;
   
-  let start:any = chartElement.hasAttribute('data-start') ? chartElement.getAttribute('data-start') : 0;
-  let end:any = chartElement.hasAttribute('data-end') ? chartElement.getAttribute('data-end') : getLargestValue(table); // TODO - get largest value from the data-xaxis
+  const start:any = chartElement.hasAttribute('data-start') ? chartElement.getAttribute('data-start') : 0;
+  const end:any = chartElement.hasAttribute('data-end') ? chartElement.getAttribute('data-end') : getLargestValue(table); // TODO - get largest value from the data-xaxis
 
 
-  let slope:any = chartElement.hasAttribute('data-slope') ? chartElement.getAttribute('data-slope') : null;
-  let yInt:any = chartElement.hasAttribute('data-yint') ? chartElement.getAttribute('data-yint') : null;
+  const slope:any = chartElement.hasAttribute('data-slope') ? chartElement.getAttribute('data-slope') : null;
+  const yInt:any = chartElement.hasAttribute('data-yint') ? chartElement.getAttribute('data-yint') : null;
 
   return {min,max,type,yaxis,targets,events,xaxis,increment,start,end,slope,yInt,guidelines};
 }
 
 function getLargestValue(table:any){
 
-  let values = Array.from(table.querySelectorAll('tbody td:not(:first-child)')).map((element: any) => {
+  const values = Array.from(table.querySelectorAll('tbody td:not(:first-child)')).map((element: any) => {
 
     let currentValue:string|number = String(element.textContent);
     currentValue = currentValue.replace('£','');
@@ -183,7 +183,7 @@ function getLargestValue(table:any){
     return currentValue;
   })
 
-  let largetValue:number = Math.max(...values);
+  const largetValue:number = Math.max(...values);
 
   // TO DO round to the nearest 10, 100, 1000 and so on
   return Math.ceil(largetValue);
@@ -241,11 +241,11 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
   
   let {min, max} = getChartData(chartElement,chartOuter);
 
-  let chartType = chartElement.getAttribute('data-type');
-  let increment = chartElement.getAttribute('data-increment');
-  let incrementStart = chartElement.getAttribute('data-start');
-  let incrementEnd = chartElement.getAttribute('data-end');
-  let startDay = min;
+  const chartType = chartElement.getAttribute('data-type');
+  const increment = chartElement.getAttribute('data-increment');
+  const incrementStart = chartElement.getAttribute('data-start');
+  const incrementEnd = chartElement.getAttribute('data-end');
+  const startDay = min;
   
   // Change how gant charts are configured as this just seems bizarre now
   if(increment == "days"){
@@ -259,7 +259,7 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
 
   Array.from(table.querySelectorAll('tbody tr')).forEach((tr:any, index) => {
 
-    let group = tr.querySelector('td:first-child, th:first-child') ? tr.querySelector('td:first-child, th:first-child').innerHTML : '';
+    const group = tr.querySelector('td:first-child, th:first-child') ? tr.querySelector('td:first-child, th:first-child').innerHTML : '';
     let coverageStart:number = 100;
     let coverageEnd:number = 0;
     let cumulativeComparison:number = 0;
@@ -274,7 +274,7 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
       let value = parseFloat(td.textContent.replace('£','').replace('%','').replace(',',''));
       let start = 0;
       if(increment == "days"){
-        let dates = td.textContent.split(' - ');
+        const dates = td.textContent.split(' - ');
         if(dates[1]){
 
           value = numberOfDays(dates[0],dates[1]);
@@ -309,7 +309,7 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
 
       Array.from(tr.querySelectorAll('td[data-numeric]:not(:first-child)')).forEach((td:any) => {
 
-        let display = getComputedStyle(td).display;
+        const display = getComputedStyle(td).display;
         if(display == 'none')
           return;
 
@@ -319,21 +319,21 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
       tr.setAttribute('data-total',total);
     }
 
-    let rowMin = tr.hasAttribute('data-min') ? tr.getAttribute('data-min') : min;
-    let rowMax = tr.hasAttribute('data-max') ? tr.getAttribute('data-max') : max;
+    const rowMin = tr.hasAttribute('data-min') ? tr.getAttribute('data-min') : min;
+    const rowMax = tr.hasAttribute('data-max') ? tr.getAttribute('data-max') : max;
 
     // Add a useful index css var for the use of animatons.
     tr.setAttribute('style',`--row-index:${index+1};`);
 
     if(rowMin < 0){
-      let minBottom = Math.abs(((rowMin)/(rowMax - rowMin))*100);
+      const minBottom = Math.abs(((rowMin)/(rowMax - rowMin))*100);
       chartElement.setAttribute('style',`--min-bottom: ${minBottom}%;`);
     }
 
     // Add css vars to cells
     Array.from(tr.querySelectorAll('td[data-numeric]:not([data-label="Min"]):not([data-label="Max"]):not(:first-child)')).forEach((td:any) => {
 
-      let display = getComputedStyle(td).display;
+      const display = getComputedStyle(td).display;
       if(display == 'none')
         return;
       
@@ -347,14 +347,14 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
 
       if(!td.hasAttribute('style')){
         
-        let { percent, bottom, axis } = getValues(value,rowMin,rowMax,start);
+        const { percent, bottom, axis } = getValues(value,rowMin,rowMax,start);
 
         td.setAttribute('data-percent',percent)
         td.setAttribute("style",`--bottom:${bottom}%;--percent:${percent}%;--axis:${axis}%;`);
 
         if(tr.hasAttribute('data-total')){
-          let rowTotal = tr.getAttribute('data-total');
-          let comparison = ((value - rowMin)/(rowTotal)) * 100;
+          const rowTotal = tr.getAttribute('data-total');
+          const comparison = ((value - rowMin)/(rowTotal)) * 100;
           cumulativeComparison += comparison;
           td.setAttribute('data-comparison',comparison);
           td.style.setProperty('--cumulative-comparision',`${cumulativeComparison}%`);
@@ -362,7 +362,7 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
         }
 
         if(chartElement.classList.contains("chart--value-order")){
-          let order:number = (10000 - Math.round(percent * 100));
+          const order:number = (10000 - Math.round(percent * 100));
           td.style.setProperty('--order',`${order}%`);
         }
 
@@ -387,10 +387,10 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
           if(totalPercent > 100)
             actualPercent = actualPercent - (totalPercent - 100);
 
-          let percentMinusAfter = previousAfter != 0 ? actualPercent - (10 - previousAfter) : actualPercent;
-          let rowHeight = percentMinusAfter < 10 ? 10 : Math.floor(percentMinusAfter/10)*10;
-          let rowWidth = percentMinusAfter < 10 ? percentMinusAfter*10 : 100;
-          let maxWidth = actualPercent*10;
+          const percentMinusAfter = previousAfter != 0 ? actualPercent - (10 - previousAfter) : actualPercent;
+          const rowHeight = percentMinusAfter < 10 ? 10 : Math.floor(percentMinusAfter/10)*10;
+          const rowWidth = percentMinusAfter < 10 ? percentMinusAfter*10 : 100;
+          const maxWidth = actualPercent*10;
 
 
 
@@ -410,8 +410,8 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
           }
 
           // Create the psuedo element variables for the the block that sticks out ABOVE the main row
-          let afterWidth = Math.round(percentMinusAfter - rowHeight)*10;
-          let afterHeight = 10/(rowHeight) * 100;
+          const afterWidth = Math.round(percentMinusAfter - rowHeight)*10;
+          const afterHeight = 10/(rowHeight) * 100;
 
           td.style.setProperty('--afterWidth',`${afterWidth}%`);
           td.style.setProperty('--afterHeight',`${afterHeight}%`);
@@ -432,8 +432,8 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
       // totals
       if(chartElement.classList.contains('chart--show-totals')){
 
-        let chartTotal = chartElement.getAttribute('data-total') ? Number.parseFloat(chartElement.getAttribute('data-total')) : 0;
-        let keyTotal = chartElement.querySelector(`.key[data-label="${label}"]`) && chartElement.querySelector(`.key[data-label="${label}"]`).getAttribute('data-total') ? Number.parseFloat(chartElement.querySelector(`.key[data-label="${label}"]`).getAttribute('data-total')) : 0;
+        const chartTotal = chartElement.getAttribute('data-total') ? Number.parseFloat(chartElement.getAttribute('data-total')) : 0;
+        const keyTotal = chartElement.querySelector(`.key[data-label="${label}"]`) && chartElement.querySelector(`.key[data-label="${label}"]`).getAttribute('data-total') ? Number.parseFloat(chartElement.querySelector(`.key[data-label="${label}"]`).getAttribute('data-total')) : 0;
         
         if(chartElement.querySelector(`.key[data-label="${label}"]`))
           chartElement.querySelector(`.key[data-label="${label}"]`).setAttribute('data-total',keyTotal+value);
@@ -444,16 +444,16 @@ export const setCellData = function(chartElement:any,chartOuter:any,table:any){
 
     // Values for incremental charts i.e. histograms...
     if(increment && incrementStart && incrementEnd){
-      let firstCellValue = parseFloat(tr.querySelector('td:first-child').textContent.replace('£','').replace('%','').replace(',',''));
-      let position = ((firstCellValue - incrementStart)/(incrementEnd - incrementStart)) * 100;
+      const firstCellValue = parseFloat(tr.querySelector('td:first-child').textContent.replace('£','').replace('%','').replace(',',''));
+      const position = ((firstCellValue - incrementStart)/(incrementEnd - incrementStart)) * 100;
       tr.setAttribute('style',`--position:${position}%;`);
     }
   });
 }
 
 export const setLongestLabel = function(chartOuter:any){
-  let chartWrapper = chartOuter.querySelector('.chart__wrapper');
-  let table = chartOuter.querySelector('.chart table');
+  const chartWrapper = chartOuter.querySelector('.chart__wrapper');
+  const table = chartOuter.querySelector('.chart table');
   // set the longest label attr so that the bar chart knows what margin to set on the left
   let longestLabel = '';
   Array.from(table.querySelectorAll('tbody tr td:first-child')).forEach((td: any) => {
@@ -482,7 +482,7 @@ export const createTypeSwitcher = function(chartElement:any,chartKey:any,chartOp
     chartKey.insertAdjacentHTML('afterend', `<input type="radio" name="chart-type" value="${chartElement.getAttribute('data-type')}" checked="">`);
   else if (chartElement.hasAttribute('data-types')){
 
-    let chartType = chartElement.hasAttribute('data-type') ? chartElement.getAttribute('data-type') : 'column';
+    const chartType = chartElement.hasAttribute('data-type') ? chartElement.getAttribute('data-type') : 'column';
     chartOptions.insertAdjacentHTML('beforebegin', availableTypes.map((type:any) => `<input type="radio" name="chart-type" value="${type}" id="${chartID}-${type}" ${chartType == type ? 'checked=""' : '' }>`).join(''));
     chartOptions.insertAdjacentHTML('beforeend', availableTypes.map((type:any) => `<label for="${chartID}-${type}">${type}</label>` ).join(''));
   }
@@ -496,7 +496,7 @@ export const createChartKey = function(chartOuter:any,tableElement:any,chartKey:
   let previousInput:any;
 
 
-  let headings = Array.from(tableElement.querySelectorAll('thead th'));
+  const headings = Array.from(tableElement.querySelectorAll('thead th'));
 
   headings.forEach((arrayElement:any , index) => {
 
@@ -514,7 +514,7 @@ export const createChartKey = function(chartOuter:any,tableElement:any,chartKey:
 }
 
 function createChartKeyItem(chartID:string,index:number,text:Array<string>,chartKey:any,chartOuter:any,previousInput:any){
-  let input = document.createElement('input');
+  const input = document.createElement('input');
   input.setAttribute('name',`${chartID}-dataset-${index}`);
   input.setAttribute('id',`${chartID}-dataset-${index}`);
   input.setAttribute('checked',`checked`);
@@ -527,7 +527,7 @@ function createChartKeyItem(chartID:string,index:number,text:Array<string>,chart
 
   previousInput = input;
 
-  let label = document.createElement('label');
+  const label = document.createElement('label');
   label.setAttribute('class',`key btn btn-action`);
   label.setAttribute('for',`${chartID}-dataset-${index}`);
   label.setAttribute('data-label',`${text}`);
@@ -545,7 +545,7 @@ export const createChartGuidelines = function(chartElement:any,chartOuter:any,ch
     yaxis = guidelines;
 
 
-  let startDay = min;
+  const startDay = min;
   if(increment == "days"){
     
     max = numberOfDays(min,max);
@@ -558,7 +558,7 @@ export const createChartGuidelines = function(chartElement:any,chartOuter:any,ch
   }
 
   chartGuidelines.innerHTML = '';
-  for (var i = 0; i < yaxis.length; i++) {
+  for (let i = 0; i < yaxis.length; i++) {
 
     let value = parseFloat(yaxis[i].replace('£','').replace('%','').replace(',',''));
 
@@ -568,7 +568,7 @@ export const createChartGuidelines = function(chartElement:any,chartOuter:any,ch
       value = numberOfDays(startDay,yaxis[i]) - 1;
     }
 
-    let { axis } = getValues(value,min,max);
+    const { axis } = getValues(value,min,max);
     chartGuidelines.innerHTML += `<div class="guideline" style="--percent:${axis}%;"><span>${yaxis[i]}</span></div>`;
   }
 }
@@ -577,7 +577,7 @@ export const createChartYaxis = function(chartElement:any,chartOuter:any,chartYa
 
   let {min, max, yaxis, increment} = getChartData(chartElement,chartOuter);
 
-  let startDay = min;
+  const startDay = min;
 
   if(increment == "days"){
 
@@ -591,7 +591,7 @@ export const createChartYaxis = function(chartElement:any,chartOuter:any,chartYa
   }
 
   chartYaxis.innerHTML = '';
-  for (var i = 0; i < yaxis.length; i++) {
+  for (let i = 0; i < yaxis.length; i++) {
 
     let value = parseFloat(yaxis[i].replace('£','').replace('%',''));
 
@@ -601,7 +601,7 @@ export const createChartYaxis = function(chartElement:any,chartOuter:any,chartYa
       
     }
 
-    let { axis } = getValues(value,min,max);
+    const { axis } = getValues(value,min,max);
     chartYaxis.innerHTML += `<div class="axis__point" style="--percent:${axis}%;"><span>${yaxis[i]}</span></div>`;
   }
 }
@@ -611,7 +611,7 @@ export const createXaxis = function(chartElement:any,chartOuter:any,xaxis:any){
   const chart = chartOuter.querySelector('.chart');
   let chartXaxis = chartOuter.querySelector('.chart__xaxis');
 
-  let {increment,start,end} = getChartData(chartElement,chartOuter);
+  const {increment,start,end} = getChartData(chartElement,chartOuter);
 
   if(!chartXaxis){
     chartXaxis = document.createElement('div');
@@ -619,10 +619,10 @@ export const createXaxis = function(chartElement:any,chartOuter:any,xaxis:any){
   }
   if(increment && start && end){
     chartXaxis.innerHTML = '';
-    for (var i = 0; i < xaxis.length; i++) {
+    for (let i = 0; i < xaxis.length; i++) {
 
-      let value = parseFloat(xaxis[i].replace('£','').replace('%',''));
-      let position = ((value - start)/(end - start)) * 100;
+      const value = parseFloat(xaxis[i].replace('£','').replace('%',''));
+      const position = ((value - start)/(end - start)) * 100;
 
       chartXaxis.innerHTML += `<div class="axis__point" style="--percent:${position}%;"><span>${xaxis[i]}</span></div>`;
     }
@@ -632,19 +632,19 @@ export const createXaxis = function(chartElement:any,chartOuter:any,xaxis:any){
 
 export const createLines = function(chartElement:any,chartOuter:any){
   
-  let {min, max} = getChartData(chartElement,chartOuter);
+  const {min, max} = getChartData(chartElement,chartOuter);
  
-  let chartType = chartElement.getAttribute('data-type');
+  const chartType = chartElement.getAttribute('data-type');
   let returnString = '';
   //let chartWrapper = chartOuter.querySelector('.chart__wrapper');
-  let linesWrapper = chartOuter.querySelector('.chart__lines');
+  const linesWrapper = chartOuter.querySelector('.chart__lines');
 
-  let items = Array.from(chartOuter.querySelectorAll('tbody tr'));
-  let lines = Array();
-  let linesCount = chartOuter.querySelectorAll('thead th:not(:first-child)').length;
-  let commands = Array();
-  let animatelines = Array();
-  let itemCount = items.length <= 1000 ? items.length : 1000;
+  const items = Array.from(chartOuter.querySelectorAll('tbody tr'));
+  const lines = [];
+  const linesCount = chartOuter.querySelectorAll('thead th:not(:first-child)').length;
+  const commands = [];
+  const animatelines = [];
+  const itemCount = items.length <= 1000 ? items.length : 1000;
   let spacer = 200/(itemCount - 1);
   let spacerIndent = 0;
 
@@ -675,9 +675,9 @@ export const createLines = function(chartElement:any,chartOuter:any){
 
         if(!cell.classList.contains('chart__bar')){
 
-          let value = cell.getAttribute('data-numeric');
+          const value = cell.getAttribute('data-numeric');
 
-          let { axis } = getValues(value,min,max);
+          const { axis } = getValues(value,min,max);
 
           if(!Number.isNaN(axis)){
             lines[subindex] += `${commands[subindex]} ${(spacerIndent) + (spacer * counter)} ${100-axis} `;
@@ -709,7 +709,7 @@ export const createLines = function(chartElement:any,chartOuter:any){
 export const createPies = function(chartOuter:any){
 
   let returnString = '';
-  let chartInner = chartOuter.querySelector('.chart');
+  const chartInner = chartOuter.querySelector('.chart');
   let pieWrapper = chartOuter.querySelector('.pies');
 
   if(!pieWrapper){
@@ -724,8 +724,8 @@ export const createPies = function(chartOuter:any){
     let tooltips = '';
     let cumulativePercent = 0;
     let total = 0;
-    let titleKey = item.querySelectorAll('td')[0]
-    let title = titleKey.innerHTML;
+    const titleKey = item.querySelectorAll('td')[0]
+    const title = titleKey.innerHTML;
     let pieCount = 0;
 
     // Work out the total amount
@@ -762,14 +762,14 @@ export const createPies = function(chartOuter:any){
       else if(subindex != 0){
 
         let value = td.getAttribute('data-numeric');
-        let hide = display == "none" ? "display: none;" : "";
+        const hide = display == "none" ? "display: none;" : "";
 
         value = value.replace('£','');
         value = value.replace('%','');
         value = value.replace(',','');
         value = Number.parseInt(value);
 
-        let percent = value/total;
+        const percent = value/total;
         const [startX, startY] = getCoordinatesForPercent(cumulativePercent,pieCount);
         const [endX, endY] = getCoordinatesForPercent(cumulativePercent+percent,pieCount);
         const largeArcFlag = percent > .5 ? 1 : 0; // if the slice is more than 50%, take the large arc (the long way around)
@@ -802,9 +802,9 @@ export const createSlope = function(chartElement:any,chartOuter:any){
   let totalXY:number = 0;
   let totalXsquared:number = 0;
 
-  let {min,max,start,end,slope,yInt} = getChartData(chartElement,chartOuter);
+  const {min,max,start,end,slope,yInt} = getChartData(chartElement,chartOuter);
 
-  let chart = chartOuter.querySelector('.chart');
+  const chart = chartOuter.querySelector('.chart');
   let slopeWrapper = chartOuter.querySelector('.slope');
 
   if(!slopeWrapper){
@@ -819,15 +819,15 @@ export const createSlope = function(chartElement:any,chartOuter:any){
     const display = getComputedStyle(tr).display;
     if(display != "none"){
 
-      let x = parseFloat(tr.querySelector('td:first-child').textContent);
+      const x = parseFloat(tr.querySelector('td:first-child').textContent);
       let y = 0;
 
       Array.from(tr.querySelectorAll('td:not(:first-child)')).forEach((td:any) => {
         y += parseFloat(td.getAttribute('data-numeric'));
       });
 
-      let xy = x * y;
-      let xSquared = x * x;
+      const xy = x * y;
+      const xSquared = x * x;
 
       totalX += x;
       totalY += y;
@@ -840,14 +840,14 @@ export const createSlope = function(chartElement:any,chartOuter:any){
 
 
   // Least squares method (https://www.youtube.com/watch?v=P8hT5nDai6A)
-  let m = slope ? parseFloat(slope) : ((n * totalXY) - (totalX * totalY)) / ((n * totalXsquared) - (totalX * totalX)); // Slope
-  let b = yInt ? parseFloat(yInt) : (totalY - (m * totalX)) / n; // Y intercept
+  const m = slope ? parseFloat(slope) : ((n * totalXY) - (totalX * totalY)) / ((n * totalXsquared) - (totalX * totalX)); // Slope
+  const b = yInt ? parseFloat(yInt) : (totalY - (m * totalX)) / n; // Y intercept
 
-  let firstY = (m * parseFloat(start)) + b;
-  let lastY = (m * parseFloat(end)) + b;
+  const firstY = (m * parseFloat(start)) + b;
+  const lastY = (m * parseFloat(end)) + b;
   
-  let { percent: firstYPercent } = getValues(firstY,min,max);
-  let { percent: lastYPercent } = getValues(lastY,min,max);
+  const { percent: firstYPercent } = getValues(firstY,min,max);
+  const { percent: lastYPercent } = getValues(lastY,min,max);
 
   slopeWrapper.innerHTML = `<svg viewBox="0 0 200 100" class="line" preserveAspectRatio="none"><path fill="none" d="M 0 ${100-firstYPercent} L 200 ${100-lastYPercent}" style="--path: path('M 0 100 L 200 100');"></path></svg>`;
 }
@@ -875,7 +875,7 @@ function createKeyTotals(chartElement:any,chartOuter:any){
     if(key.querySelector('.chart__total'))
       key.querySelector('.chart__total').remove();
 
-    let label = key.getAttribute('data-label');
+    const label = key.getAttribute('data-label');
     let keyTotal:any = 0;
 
     Array.from(chartOuter.querySelectorAll(`tbody td[data-label="${label}"]`)).forEach((td:any) => {
@@ -884,7 +884,7 @@ function createKeyTotals(chartElement:any,chartOuter:any){
       keyTotal += value;
     });
 
-    let keyPercent = Math.round((keyTotal/chartTotal)*100);
+    const keyPercent = Math.round((keyTotal/chartTotal)*100);
 
     if(chartElement.hasAttribute('data-currency')){
       

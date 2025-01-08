@@ -41,17 +41,17 @@ class iamInlineEdit extends HTMLElement {
 
 	connectedCallback() {
 
-    let inlineEdit = this;
-    let saveButton = this.shadowRoot.querySelector('#save');
-    let cancelButton = this.shadowRoot.querySelector('#cancel');
+    const inlineEdit = this;
+    const saveButton = this.shadowRoot.querySelector('#save');
+    const cancelButton = this.shadowRoot.querySelector('#cancel');
     
-    let label = this.querySelector('label');
-    let input = this.querySelector('input, textarea, select');
-    let preview = this.querySelector('.preview');
+    const label = this.querySelector('label');
+    const input = this.querySelector('input, textarea, select');
+    const preview = this.querySelector('.preview');
 
-    let statusSaving = this.shadowRoot.querySelector('#saving');
-    let statusSaved = this.shadowRoot.querySelector('#saved');
-    let statusNotSaved = this.shadowRoot.querySelector('#notsaved');
+    const statusSaving = this.shadowRoot.querySelector('#saving');
+    const statusSaved = this.shadowRoot.querySelector('#saved');
+    const statusNotSaved = this.shadowRoot.querySelector('#notsaved');
 
     // Save the original value for later
     let originalValue = input.value;

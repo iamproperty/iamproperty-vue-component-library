@@ -54,16 +54,16 @@ class iamSlider extends HTMLElement {
       stepperStart = "touchstart";
     }
 
-    let stepperFunction = function(input, eventType) {
+    const stepperFunction = function(input, eventType) {
 
-      let value = input.value;
+      const value = input.value;
 
-      let min = slider.shadowRoot.querySelector('.is-first').getAttribute('min');
-      let max = slider.shadowRoot.querySelector('.is-last').getAttribute('max');
+      const min = slider.shadowRoot.querySelector('.is-first').getAttribute('min');
+      const max = slider.shadowRoot.querySelector('.is-last').getAttribute('max');
 
       if (input.classList.contains('is-last') && !input.classList.contains('is-first')){
 
-        let percent = ((value/(max-min)) * 100);
+        const percent = ((value/(max-min)) * 100);
         slider.style.setProperty('--percent', percent + "%");
 
         if(parseFloat(input.value) <= parseFloat(slider.shadowRoot.querySelector('.is-first').value)){
@@ -75,7 +75,7 @@ class iamSlider extends HTMLElement {
       }
       else if(input.classList.contains('is-first') && !input.classList.contains('is-last')){
 
-        let percent = ((value/(max-min)) * 100);
+        const percent = ((value/(max-min)) * 100);
         slider.style.setProperty('--start-percent', percent + "%");
 
         if(parseFloat(input.value) >= parseFloat(slider.shadowRoot.querySelector('.is-last').value)){
@@ -87,7 +87,7 @@ class iamSlider extends HTMLElement {
       }
       else {
         
-        let percent = ((value/(max-min)) * 100).toFixed(2);
+        const percent = ((value/(max-min)) * 100).toFixed(2);
         slider.style.setProperty('--percent', percent + "%");
       }
     };
@@ -95,7 +95,7 @@ class iamSlider extends HTMLElement {
     // Create sliders
     Array.from(inputs).forEach((input,index) => {
 
-      let rangeInput = input.cloneNode(true);
+      const rangeInput = input.cloneNode(true);
       input.setAttribute('type','number');
       rangeInput.setAttribute('type','range');
 

@@ -6,7 +6,7 @@ function filterlist(list: Element, input:Element) {
 
 function addFilterlistEventListeners(list: Element, input:Element) {
 
-  var timer;
+  let timer;
 
   input.addEventListener('keyup', (event) => {
 
@@ -27,7 +27,7 @@ function addFilterlistEventListeners(list: Element, input:Element) {
 export const filterTheList =  function (list: Element, searchTerm){
 
   Array.from(list.querySelectorAll(':scope > li')).forEach((item, index) => {
-    let content = item.textContent.toLowerCase();
+    const content = item.textContent.toLowerCase();
 
     item.classList.add('d-none');
 

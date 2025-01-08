@@ -68,7 +68,7 @@ class iamVideoCard extends HTMLElement {
 
       // Load the scripts only once
       if(!document.body.classList.contains('youtubeLoaded')){
-        let loaded = await this.loadYouTubeScripts();
+        const loaded = await this.loadYouTubeScripts();
       }
       cardHead.addEventListener('click',function(){
 
@@ -127,9 +127,9 @@ class iamVideoCard extends HTMLElement {
       image.onload = function(){
 
         // This code loads the IFrame Player API code asynchronously.
-        var tag = document.createElement('script');
+        const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
+        const firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         document.body.classList.add('youtubeLoaded');
         resolve(true);
@@ -148,8 +148,8 @@ class iamVideoCard extends HTMLElement {
       window.player = [];
     }
 
-    var link_id = target.getAttribute('id');
-    var video_id = this.getAttribute('data-youtube');
+    const link_id = target.getAttribute('id');
+    const video_id = this.getAttribute('data-youtube');
 
     console.log(window.player)
 
@@ -189,12 +189,12 @@ class iamVideoCard extends HTMLElement {
 
     // The API calls this function when the player's state changes.
     // The function indicates that when playing a video (state=1)
-    var done = false;
+    let done = false;
     function onPlayerStateChange(event) {
 
       if (event.data == YT.PlayerState.PLAYING && !done) {
 
-        var link = document.getElementById(link_id);
+        const link = document.getElementById(link_id);
         link.classList.add('player-ready');
 
         done = true;

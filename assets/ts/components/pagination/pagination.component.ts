@@ -106,7 +106,7 @@ class iamPagination extends HTMLElement {
 
     loadMore.addEventListener('click',(event) => {
 
-      let newValue = parseInt(this.getAttribute('data-show')) + parseInt(this.getAttribute('data-increment'));
+      const newValue = parseInt(this.getAttribute('data-show')) + parseInt(this.getAttribute('data-increment'));
       this.setAttribute('data-show',newValue);
 
       if(newValue > parseInt(this.getAttribute('data-total'))){
@@ -157,8 +157,8 @@ class iamPagination extends HTMLElement {
 
     
     // Update the item count text
-    let startPoint = currentPage == 1 ? 1 : ((currentPage-1)*show)+1;
-    let endPoint = currentPage == 1 ? show : ((currentPage)*show);
+    const startPoint = currentPage == 1 ? 1 : ((currentPage-1)*show)+1;
+    const endPoint = currentPage == 1 ? show : ((currentPage)*show);
     itemCount.innerHTML = `${startPoint} - ${endPoint > total ? total : endPoint} of ${total} items`;
     
     const defaultValues = [15,25,40,50];

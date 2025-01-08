@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 // Data layer Web component created
 window.dataLayer = window.dataLayer || [];
 window.dataLayer.push({
@@ -36,7 +34,7 @@ class iamAccordion extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
-	connectedCallback() {
+	connectedCallback():void {
 
     if(!this.classList.contains('accordion--keep-open')){
 

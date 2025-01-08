@@ -5,8 +5,8 @@ function inputRange(inputWrapper){
 
   inputWrapper.addEventListener('change', function(e){
 
-    var min = parseInt(inputWrapper.querySelector('[data-min] select,[data-min] input').value);
-    var max = parseInt(inputWrapper.querySelector('[data-max] select,[data-max] input').value);
+    const min = parseInt(inputWrapper.querySelector('[data-min] select,[data-min] input').value);
+    const max = parseInt(inputWrapper.querySelector('[data-max] select,[data-max] input').value);
 
     // Set attributes for input fields
     Array.from(inputWrapper.querySelectorAll('[data-min] input')).forEach((input, index) => {
@@ -69,7 +69,7 @@ function multipleFileUploads(wrapper){
   const addButton = wrapper.querySelector('[data-add]');
 
   wrapper.addEventListener('click', function(e){
-    for (var target = e.target; target && target != this; target = target.parentNode) {
+    for (let target = e.target; target && target != this; target = target.parentNode) {
       if (target.matches('[data-add]')) {  // Add a new row upload file input fields
 
         const tempClone = clone.cloneNode(true);
@@ -82,7 +82,7 @@ function multipleFileUploads(wrapper){
       }
       if (target.matches('[data-delete]')) { // Delete the current row
 
-        let row = target.closest('.row');
+        const row = target.closest('.row');
         row.remove();
 
         if(addButton.matches('[data-maxfiles]') && Array.from(wrapper.querySelectorAll(':scope > .row')).length < addButton.dataset.maxfiles)
@@ -114,7 +114,7 @@ function form(formElement) {
 
   // Check the file size of a file when uploaded in case it exceeds the max file size set
   formElement.addEventListener('change', function(e){
-    for (var target = e.target; target && target != this; target = target.parentNode) {
+    for (let target = e.target; target && target != this; target = target.parentNode) {
       if (target.matches('[type="file"][data-filesize]') && target.files && target.files[0]) {
 
           const maxAllowedSize = target.dataset.filesize;
@@ -135,10 +135,10 @@ function form(formElement) {
     // Remove disabled attribute when a pre-selected input field equals a certain value
     Array.from(formElement.querySelectorAll('select[data-activeif][data-equals],input[data-activeif][data-equals]')).forEach((arrayElement, index) => {
 
-      let group = arrayElement.closest('[data-group]') ? arrayElement.closest('[data-group]') : formElement;
-      let selector = arrayElement.dataset.activeif;
-      let value = arrayElement.dataset.equals;
-      let testElement = group.querySelector(`select[data-id="${selector}"],input[data-id="${selector}"]`);
+      const group = arrayElement.closest('[data-group]') ? arrayElement.closest('[data-group]') : formElement;
+      const selector = arrayElement.dataset.activeif;
+      const value = arrayElement.dataset.equals;
+      const testElement = group.querySelector(`select[data-id="${selector}"],input[data-id="${selector}"]`);
 
       if(testElement.value == value){
         arrayElement.removeAttribute('disabled');
@@ -152,10 +152,10 @@ function form(formElement) {
     // Show this input wrapper when a pre-selected input field equals a certain value
     Array.from(formElement.querySelectorAll('.form-control__wrapper[data-displayif][data-equals]')).forEach((arrayElement, index) => {
 
-      let group = arrayElement.closest('[data-group]') ? arrayElement.closest('[data-group]') : formElement;
-      let selector = arrayElement.dataset.activeif;
-      let value = arrayElement.dataset.equals;
-      let testElement = group.querySelector(`select[data-id="${selector}"],input[data-id="${selector}"]`);
+      const group = arrayElement.closest('[data-group]') ? arrayElement.closest('[data-group]') : formElement;
+      const selector = arrayElement.dataset.activeif;
+      const value = arrayElement.dataset.equals;
+      const testElement = group.querySelector(`select[data-id="${selector}"],input[data-id="${selector}"]`);
 
       if(testElement.value == value)
         arrayElement.classList.remove('d-none');

@@ -32,10 +32,10 @@ function setupNotification(element) {
   // Self disappearing alert
   if(element.hasAttribute('data-timeout')){
 
-    let timeOut = element.getAttribute('data-timeout');
+    const timeOut = element.getAttribute('data-timeout');
 
 
-    var timer = new Timer(function() {
+    const timer = new Timer(function() {
       closeNotification(element);
     }, timeOut);
 
@@ -52,7 +52,7 @@ function setupNotification(element) {
 }
 
 function Timer(callback, delay) {
-  var timerId, start, remaining = delay;
+  let timerId, start, remaining = delay;
 
   this.pause = function() {
     window.clearTimeout(timerId);

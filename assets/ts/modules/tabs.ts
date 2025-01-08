@@ -5,7 +5,7 @@ export const createTabsLinks = function(tabsElement: Element) {
 
   const details = tabsElement.querySelectorAll(':scope > details');
   const detailsORLinks = tabsElement.querySelectorAll(':scope > details, :scope > a');
-  let summaries = tabsElement.querySelectorAll(':scope > details > summary');
+  const summaries = tabsElement.querySelectorAll(':scope > details > summary');
   let tabLinks = tabsElement.querySelector(':scope > .tabs__links');
 
   if(tabsElement.shadowRoot && tabsElement.shadowRoot.querySelector('.tabs__links'))
@@ -15,7 +15,7 @@ export const createTabsLinks = function(tabsElement: Element) {
     tabLinks = document.createElement('div');
     tabLinks.classList.add('tabs__links');
 
-    let tabLinksWrapper = document.createElement('div');
+    const tabLinksWrapper = document.createElement('div');
     tabLinksWrapper.classList.add('tabs__links__wrapper');
     
     tabLinksWrapper.prepend(tabLinks);
@@ -30,8 +30,8 @@ export const createTabsLinks = function(tabsElement: Element) {
     
     if(element.matches('details')){
 
-      let summary = element.querySelector(':scope > summary');
-      let isDisabled = summary.classList.contains('disabled')
+      const summary = element.querySelector(':scope > summary');
+      const isDisabled = summary.classList.contains('disabled')
 
       summary.classList.add('visually-hidden');
 
@@ -65,14 +65,14 @@ export const createTabsLinks = function(tabsElement: Element) {
 
 export const setTabsEventHandlers = function(tabsElement: Element){
 
-  let details = tabsElement.querySelectorAll(':scope > details');
-  let summaries = tabsElement.querySelectorAll(':scope > details > summary');
+  const details = tabsElement.querySelectorAll(':scope > details');
+  const summaries = tabsElement.querySelectorAll(':scope > details > summary');
   let buttonWrapper = tabsElement.querySelector(':scope .tabs__links');
   let buttons = tabsElement.querySelectorAll(':scope .tabs__links > button');
 
   let nextButton = tabsElement.querySelector(':scope .tabs__next');
 
-  var scrollTimeout;
+  let scrollTimeout;
   let isScrolled = false;
   let isClicked = false;
 
@@ -125,7 +125,7 @@ export const setTabsEventHandlers = function(tabsElement: Element){
         return false
 
       buttons.forEach((buttonLoopItem) => {
-        let buttonPressed = buttonLoopItem == button ? true : false;
+        const buttonPressed = buttonLoopItem == button ? true : false;
         buttonLoopItem.setAttribute('aria-pressed', buttonPressed);
       });
 
@@ -140,7 +140,7 @@ export const setTabsEventHandlers = function(tabsElement: Element){
       isScrolled = false;
 
       details.forEach((detail, detailsIndex) => {
-        let detailsOpen = button.getAttribute('data-index') == detailsIndex ? true : false;
+        const detailsOpen = button.getAttribute('data-index') == detailsIndex ? true : false;
 
         if(detailsOpen)
           detail.setAttribute('open', detailsOpen);
@@ -177,8 +177,8 @@ export const setTabsEventHandlers = function(tabsElement: Element){
   nextButton.addEventListener("click", (e) => {
     e.preventDefault();
 
-    let currentTab = buttonWrapper.querySelector('[aria-pressed="true"]');
-    let nextTab = currentTab.nextSibling;
+    const currentTab = buttonWrapper.querySelector('[aria-pressed="true"]');
+    const nextTab = currentTab.nextSibling;
     if(nextTab)
       nextTab.click();
   });
@@ -186,10 +186,10 @@ export const setTabsEventHandlers = function(tabsElement: Element){
 
   if(tabsElement.classList.contains('tabs--guided')){
       
-    var touchstartX = 0;
-    var touchstartY = 0;
-    var touchendX = 0;
-    var touchendY = 0;
+    let touchstartX = 0;
+    let touchstartY = 0;
+    let touchendX = 0;
+    let touchendY = 0;
 
     details.forEach((detail) => {
 
@@ -205,20 +205,20 @@ export const setTabsEventHandlers = function(tabsElement: Element){
         event.stopPropagation();
         touchendX = event.changedTouches[0].screenX;
         touchendY = event.changedTouches[0].screenY;
-        let direction = getSwipeDirection(touchstartX,touchstartY,touchendX,touchendY);
-        let currentTab = buttonWrapper.querySelector('[aria-pressed="true"]');
+        const direction = getSwipeDirection(touchstartX,touchstartY,touchendX,touchendY);
+        const currentTab = buttonWrapper.querySelector('[aria-pressed="true"]');
 
         switch (direction) {
           case 'left':
             
-            let nextTab = currentTab.nextSibling;
+            const nextTab = currentTab.nextSibling;
             if(nextTab)
               nextTab.click();
           
             break;
           case 'right':
               
-            let prevTab = currentTab.previousSibling;
+            const prevTab = currentTab.previousSibling;
             if(prevTab)
               prevTab.click();
 
@@ -234,8 +234,8 @@ export const openFirstTab = function(tabsElement: Element){
   if(!tabsElement.querySelector(':scope > details'))
     return false;
 
-  let details = tabsElement.querySelectorAll(':scope > details');
-  let buttons = tabsElement.shadowRoot.querySelectorAll('.tabs__links > button');
+  const details = tabsElement.querySelectorAll(':scope > details');
+  const buttons = tabsElement.shadowRoot.querySelectorAll('.tabs__links > button');
 
 
   if(location.hash && tabsElement.shadowRoot.querySelector(`.tabs__links [data-id="${location.hash.replace('#','')}"]`)){

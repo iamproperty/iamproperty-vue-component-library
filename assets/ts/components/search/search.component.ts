@@ -46,7 +46,7 @@ class iamSearch extends HTMLElement {
     const displaySchema = this.hasAttribute('data-display-schema') ? this.getAttribute('data-display-schema') : 'label';
     const loopSchema = this.hasAttribute('data-schema') ? this.getAttribute('data-schema') : '';
     let datalist = this.querySelector('datalist');
-    let searched = [];
+    const searched = [];
 
     // Clone original input field, re-name and use for display purposes
     const displayInputField = inputField.cloneNode();
@@ -63,7 +63,7 @@ class iamSearch extends HTMLElement {
     if(!datalist){
 
       datalist = document.createElement("datalist");
-      let listID = safeID('list');
+      const listID = safeID('list');
       datalist.setAttribute('id',listID);
       searchWrapper.appendChild(datalist);
 
@@ -84,8 +84,8 @@ class iamSearch extends HTMLElement {
 
     function checkMatch(){
       
-      let match = datalist.querySelector(`option[value="${displayInputField.value}"]`);
-      let subMatch = datalist.querySelector(`option[value*="${displayInputField.value}" i]`);
+      const match = datalist.querySelector(`option[value="${displayInputField.value}"]`);
+      const subMatch = datalist.querySelector(`option[value*="${displayInputField.value}" i]`);
 
       if(match){
         inputField.value = match.getAttribute('data-value');
@@ -140,12 +140,12 @@ class iamSearch extends HTMLElement {
           
           // populate datalist
           let listString = '';
-          let loopValues = resolvePath(response, loopSchema, '');
+          const loopValues = resolvePath(response, loopSchema, '');
 
           if(isTraversable(loopValues) && typeof loopValues.forEach == 'function') {
             loopValues.forEach((item, index) => {
-              let actualValue = resolvePath(item, valueSchema, '');
-              let displayValue = resolvePath(item, displaySchema, '').replace('\n',', ');
+              const actualValue = resolvePath(item, valueSchema, '');
+              const displayValue = resolvePath(item, displaySchema, '').replace('\n',', ');
 
               console.log(displayValue);
 
@@ -160,8 +160,8 @@ class iamSearch extends HTMLElement {
 
               if(isTraversable(value) && typeof value.forEach == 'function') {
                 value.forEach((item, index) => {
-                  let actualValue = resolvePath(item, valueSchema, '');
-                  let displayValue = resolvePath(item, displaySchema, '').replace('\n',', ');
+                  const actualValue = resolvePath(item, valueSchema, '');
+                  const displayValue = resolvePath(item, displaySchema, '').replace('\n',', ');
     
                   if(!datalist.querySelector(`option[data-value="${actualValue}"]`))
                     listString += `<option value="${key}: ${displayValue}" data-value='${actualValue}'></option>`;

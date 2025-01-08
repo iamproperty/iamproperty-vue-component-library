@@ -12,7 +12,7 @@ function fileupload(fileupload: Element, wrapper: Element) {
   const cloneInput = input.cloneNode();
   dropArea.append(cloneInput);
 
-  let checkFileExt = function(filename){
+  const checkFileExt = function(filename){
 
     if(!input.hasAttribute('accept'))
       return true;
@@ -72,7 +72,7 @@ function fileupload(fileupload: Element, wrapper: Element) {
 
       const filesArray = [...input.files, ...cloneInput.files];
       
-      let fileNames = [];
+      const fileNames = [];
 
       const dt = new DataTransfer();
 
@@ -127,7 +127,7 @@ function fileupload(fileupload: Element, wrapper: Element) {
 
     if(input.files.length == 1) {
 
-      let file = input.files[0];
+      const file = input.files[0];
 
       const size = file.size/1000;
 
@@ -163,7 +163,7 @@ function fileupload(fileupload: Element, wrapper: Element) {
 
   if(fileupload.hasAttribute('data-filename')){
     
-    let filename = fileupload.getAttribute('data-filename');
+    const filename = fileupload.getAttribute('data-filename');
 
     if(filename)
       filesWrapper.innerHTML = `<span class="file">${filename} <button data-file="${filename}">Remove</button></span>`;

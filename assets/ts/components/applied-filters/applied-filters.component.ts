@@ -19,7 +19,7 @@ class iamAppliedFilters extends HTMLElement {
     const coreCSS = document.body.hasAttribute('data-core-css') ? document.body.getAttribute('data-core-css') : `${assetLocation}/css/core.min.css`;
     const loadCSS = `@import "${assetLocation}/css/components/applied-filters.css";`;
 
-    let classList = this.classList.toString();
+    const classList = this.classList.toString();
     const template = document.createElement('template');
     template.innerHTML = `
     <style>

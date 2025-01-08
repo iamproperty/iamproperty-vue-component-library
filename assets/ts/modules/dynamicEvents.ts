@@ -53,7 +53,7 @@ const checkConditions = (element,event) => {
   else if("in-list" in event){
 
     // Pass the matched datalist element instead of the triggered element
-    let match = document.querySelector(`${event['in-list']} option[value="${element.value}"]`);
+    const match = document.querySelector(`${event['in-list']} option[value="${element.value}"]`);
 
     if(document.querySelector(`${event['in-list']} option[value="${element.value}"]`)){
 
@@ -79,7 +79,7 @@ const runEvent = (element,event,eventType) => {
 
       if(document.querySelector(event['target'])){
           
-        let hideElement =  document.querySelector(event['target']);
+        const hideElement =  document.querySelector(event['target']);
         hideElement.classList.add('js-hide');
 
         Array.from(hideElement.querySelectorAll('[data-required]')).forEach((input, index) => {
@@ -92,7 +92,7 @@ const runEvent = (element,event,eventType) => {
 
       if(document.querySelector(event['target'])){
             
-        let showElement =  document.querySelector(event['target']);
+        const showElement =  document.querySelector(event['target']);
         showElement.classList.remove('js-hide');
 
         Array.from(showElement.querySelectorAll('[data-required]')).forEach((input, index) => {
@@ -106,7 +106,7 @@ const runEvent = (element,event,eventType) => {
       populateForm(element,event);
       break;
     case "dispatchEvent":
-      let theEvent = new Event(event['value']);
+      const theEvent = new Event(event['value']);
       document.querySelector(`${event['target']}`).dispatchEvent(theEvent);
       break;
     case "setAttribute":
@@ -126,7 +126,7 @@ const runEvent = (element,event,eventType) => {
     case "updateValue":
       document.querySelector(`${event['target']}`).value = event['value'] ? event['value'] : "";
       
-      let changeEvent = new Event('change');
+      const changeEvent = new Event('change');
       document.querySelector(`${event['target']}`).dispatchEvent(changeEvent);
       break;
     case "submitForm":
@@ -145,8 +145,8 @@ const runEvent = (element,event,eventType) => {
 
 const populateForm = function (element,event) {
   
-  let values = JSON.parse(element.getAttribute('data-values'));
-  let form = document.querySelector(event['target']);
+  const values = JSON.parse(element.getAttribute('data-values'));
+  const form = document.querySelector(event['target']);
 
   if(!values)
     return false;

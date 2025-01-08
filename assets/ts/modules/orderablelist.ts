@@ -48,7 +48,7 @@ function orderlist(list) {
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
 
-    for (var target = e.target; target && target != this; target = target.parentNode) {
+    for (let target = e.target; target && target != this; target = target.parentNode) {
       if (target.matches('li')) {
 
         target.classList.add('li--dropable')
@@ -59,7 +59,7 @@ function orderlist(list) {
   list.addEventListener("dragleave", function( e ) {
     // prevent default to allow drop
     e.preventDefault();
-    for (var target = e.target; target && target != this; target = target.parentNode) {
+    for (let target = e.target; target && target != this; target = target.parentNode) {
       if (target.matches('li')) {
 
         target.classList.remove('li--dropable')
@@ -71,7 +71,7 @@ function orderlist(list) {
 
     e.preventDefault();
 
-    for (var target = e.target; target && target != this; target = target.parentNode) {
+    for (let target = e.target; target && target != this; target = target.parentNode) {
       if (target.matches('li')) {
 
         if(target.parentNode != null && draggedRow.parentNode != null && target != draggedRow){
@@ -95,7 +95,7 @@ function orderlist(list) {
 
   list.addEventListener("keydown", function( e ) {
 
-    let item = e.target;
+    const item = e.target;
 
     if(e.keyCode == 38){
       e.preventDefault();

@@ -51,8 +51,8 @@ export const addGlobalEvents = (body) => {
   addEventListener("popstate", (event) => {
 
     if(event && event.state && event.state.type && event.state.type == "pagination"){
-      let form = document.querySelector(`#${event.state.form}`);
-      let pageInput = document.querySelector(`#${event.state.form} [data-pagination]`);
+      const form = document.querySelector(`#${event.state.form}`);
+      const pageInput = document.querySelector(`#${event.state.form} [data-pagination]`);
       
       if(pageInput)
         pageInput.value = event.state.page;
@@ -67,7 +67,7 @@ export const addGlobalEvents = (body) => {
 
     if (event && event.target instanceof HTMLElement && event.target.matches('form')){
 
-      let form = event.target;
+      const form = event.target;
 
       // Reset password types
       Array.from(form.querySelectorAll('[data-password-type]')).forEach((input,index) => {
@@ -101,7 +101,7 @@ export const addGlobalEvents = (body) => {
   });
 
   Array.from(document.querySelectorAll('label progress')).forEach((progress,index) => {
-    let label = progress.closest('label');
+    const label = progress.closest('label');
 
     label.setAttribute('data-percent',progress.getAttribute('value'));
   });
@@ -132,10 +132,10 @@ export const safeID = function(str){
 
 export const numberOfDays = function(startDateString:string,endDateString:string){
 
-  let convertStart = startDateString.split('/');
-  let convertEnd = endDateString.split('/');
-  let dateStart:any = new Date(convertStart[1]+'/'+convertStart[0]+'/'+convertStart[2]);
-  let dateEnd:any = new Date(convertEnd[1]+'/'+convertEnd[0]+'/'+convertEnd[2]);
+  const convertStart = startDateString.split('/');
+  const convertEnd = endDateString.split('/');
+  const dateStart:any = new Date(convertStart[1]+'/'+convertStart[0]+'/'+convertStart[2]);
+  const dateEnd:any = new Date(convertEnd[1]+'/'+convertEnd[0]+'/'+convertEnd[2]);
 
   if(dateStart == "Invalid Date")
     throw "Start date is not a valid date"
@@ -144,8 +144,8 @@ export const numberOfDays = function(startDateString:string,endDateString:string
     throw "End date is not a valid date"
 
   // To calculate the time difference of two dates
-  let diffTime = dateEnd.getTime() - dateStart.getTime();
-  let numberOfDays = (diffTime / (1000 * 3600 * 24) + 1);
+  const diffTime = dateEnd.getTime() - dateStart.getTime();
+  const numberOfDays = (diffTime / (1000 * 3600 * 24) + 1);
 
   if(numberOfDays < 0)
     throw "The start date should be before the end date";
@@ -161,12 +161,12 @@ export const isTraversable = o => Array.isArray(o) || o !== null && ['function',
 export const getSwipeDirection = (touchstartX,touchstartY,touchendX,touchendY) => {
     
   const limit = Math.tan(45 * 1.5 / 180 * Math.PI);  
-  let pageWidth = window.innerWidth || document.body.clientWidth;
-  let treshold = Math.max(1,Math.floor(0.01 * (pageWidth)));
-  let x = touchendX - touchstartX;
-  let y = touchendY - touchstartY;
-  let xy = Math.abs(x / y);
-  let yx = Math.abs(y / x);
+  const pageWidth = window.innerWidth || document.body.clientWidth;
+  const treshold = Math.max(1,Math.floor(0.01 * (pageWidth)));
+  const x = touchendX - touchstartX;
+  const y = touchendY - touchstartY;
+  const xy = Math.abs(x / y);
+  const yx = Math.abs(y / x);
   if (Math.abs(x) > treshold || Math.abs(y) > treshold) {
       if (yx <= limit) {
           if (x < 0) {

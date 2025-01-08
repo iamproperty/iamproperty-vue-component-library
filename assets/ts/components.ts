@@ -14,7 +14,7 @@ components.forEach((component) => {
   if(document.getElementsByTagName(`${prefix}-${component}`).length === 0)
     return;
 
-  let callback = (entries:any) => {
+  const callback = (entries:any) => {
     entries.forEach((entry:any) => {
       
       if(entry.intersectionRatio > 0){

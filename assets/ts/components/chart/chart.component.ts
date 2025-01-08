@@ -62,7 +62,7 @@ class iamChart extends HTMLElement {
       threshold: 0.1
     }
 
-    let callback = (entries:any) => {
+    const callback = (entries:any) => {
 
       entries.forEach((entry:any) => {
         
@@ -73,8 +73,8 @@ class iamChart extends HTMLElement {
           chartOuter.classList.add('inview');
           intObserver.unobserve(entry.target);
 
-          let rowCount = entry.target.querySelectorAll('tbody tr').length;
-          let animationTime = 2000 + (rowCount*100);
+          const rowCount = entry.target.querySelectorAll('tbody tr').length;
+          const animationTime = 2000 + (rowCount*100);
           
 
           setTimeout(function() {

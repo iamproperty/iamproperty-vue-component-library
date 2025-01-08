@@ -74,7 +74,7 @@ class iamNav extends HTMLElement {
 
     // Check the content 
     this.querySelectorAll(':scope > *').forEach(function(element){
-      let tagname = element.tagName;
+      const tagname = element.tagName;
 
       switch(tagname){
         case "BUTTON":
@@ -124,7 +124,7 @@ class iamNav extends HTMLElement {
           mdButton.classList.toggle('active');
 
           // Close desktop menus
-          let openMenu = iamNav.querySelector(':scope > details[open]');
+          const openMenu = iamNav.querySelector(':scope > details[open]');
 
           if(openMenu)
             openMenu.removeAttribute('open')
@@ -157,7 +157,7 @@ class iamNav extends HTMLElement {
             if(selectedButton != button){
 
               selectedButton.removeAttribute('aria-expanded');
-              let innerBtn = selectedButton.querySelector('.btn-primary');
+              const innerBtn = selectedButton.querySelector('.btn-primary');
               innerBtn.classList.remove('active');
             }
           });
@@ -194,7 +194,7 @@ class iamNav extends HTMLElement {
       });
       iamNav.shadowRoot.querySelectorAll('.buttons-holder .btn-menu[aria-expanded]').forEach(function(element){
         element.removeAttribute('aria-expanded');
-        let innerBtn = element.querySelector('.btn-primary');
+        const innerBtn = element.querySelector('.btn-primary');
         innerBtn.classList.remove('active');
       });
 
@@ -220,7 +220,7 @@ class iamNav extends HTMLElement {
     // Close the menu on the click of the backdrop on desktop
     backdrop.addEventListener("click", (event) => {
 
-      let openMenu = this.querySelector('details[open] summary');
+      const openMenu = this.querySelector('details[open] summary');
 
       if(openMenu)
         openMenu.click();
@@ -231,7 +231,7 @@ class iamNav extends HTMLElement {
       });
       iamNav.shadowRoot.querySelectorAll('.buttons-holder .btn-menu[aria-expanded]').forEach(function(element){
         element.removeAttribute('aria-expanded');
-        let innerBtn = element.querySelector('.btn-primary');
+        const innerBtn = element.querySelector('.btn-primary');
         innerBtn.classList.remove('active');
       });
 
@@ -245,9 +245,9 @@ class iamNav extends HTMLElement {
 
         if(window.innerWidth > 992 && !event.target.closest('.nav--menu')){
 
-          let summary = event.target.closest('summary');
-          let details = summary.closest('details');
-          let wrapper = details.parentNode;
+          const summary = event.target.closest('summary');
+          const details = summary.closest('details');
+          const wrapper = details.parentNode;
 
           if(details.hasAttribute('open'))
             details.removeAttribute('open');
@@ -261,7 +261,7 @@ class iamNav extends HTMLElement {
           });
           iamNav.shadowRoot.querySelectorAll('.buttons-holder .btn-menu[aria-expanded]').forEach(function(element){
             element.removeAttribute('aria-expanded');
-            let innerBtn = element.querySelector('.btn-primary');
+            const innerBtn = element.querySelector('.btn-primary');
             innerBtn.classList.remove('active');
           });
 
@@ -289,8 +289,8 @@ class iamNav extends HTMLElement {
     // Mega menu title
     this.querySelectorAll('details').forEach((detailsElement) => {
 
-      let summary = detailsElement.querySelector('summary');
-      let containerDiv = detailsElement.querySelector(':Scope > div');
+      const summary = detailsElement.querySelector('summary');
+      const containerDiv = detailsElement.querySelector(':Scope > div');
 
       containerDiv.setAttribute('data-title', summary.textContent);
     });
@@ -298,7 +298,7 @@ class iamNav extends HTMLElement {
     // Search 
     if(this.querySelector('[slot="search"]')){
       menu.classList.add('has-search');
-      let searchWrapper = this.shadowRoot.querySelector('#search-wrapper');
+      const searchWrapper = this.shadowRoot.querySelector('#search-wrapper');
 
       searchWrapper.classList.remove('d-none');
       searchWrapper.insertAdjacentHTML('afterbegin',`<button class="btn btn-secondary btn-compact fa-search me-0 mb-0" id="search-button" aria-controls="search-dialog">Open Search field</button>
@@ -315,9 +315,9 @@ class iamNav extends HTMLElement {
       </div>
       </dialog>`);
       
-      let searchButton = this.shadowRoot.querySelector('#search-button');
-      let searchClose = this.shadowRoot.querySelector('#search-close');
-      let searchDialog = this.shadowRoot.querySelector('#search-dialog');
+      const searchButton = this.shadowRoot.querySelector('#search-button');
+      const searchClose = this.shadowRoot.querySelector('#search-close');
+      const searchDialog = this.shadowRoot.querySelector('#search-dialog');
 
       if(this.hasAttribute('data-search-open')){
         

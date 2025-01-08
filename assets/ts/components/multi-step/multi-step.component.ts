@@ -32,7 +32,7 @@ class iamMultiStep extends HTMLElement {
     const steps = this.shadowRoot.querySelector('.steps');
     const form = this.querySelector('form');
     
-    let fieldsets = Array.from(MultiStepComponent.querySelectorAll('fieldset[data-title]'));
+    const fieldsets = Array.from(MultiStepComponent.querySelectorAll('fieldset[data-title]'));
 
     fieldsets.forEach((fieldset,index) => {
 
@@ -55,7 +55,7 @@ class iamMultiStep extends HTMLElement {
       if(index == fieldsets.length - 1){
         if(form && form.querySelector(':scope > button[type="submit"]')){
   
-          let existingButton = form.querySelector(':scope > button[type="submit"]');
+          const existingButton = form.querySelector(':scope > button[type="submit"]');
           existingButton.classList.add('mb-0')
   
           btnWrapper.insertAdjacentElement('beforeend',existingButton);
@@ -68,11 +68,11 @@ class iamMultiStep extends HTMLElement {
     
 
     // Open the fieldset with an error inside
-    let validatedFieldsets = Array.from(MultiStepComponent.querySelectorAll('fieldset.was-validated'));
+    const validatedFieldsets = Array.from(MultiStepComponent.querySelectorAll('fieldset.was-validated'));
     for (let i = 0; i < validatedFieldsets.length; i++) {
 
-      let fieldset = validatedFieldsets[i];
-      let fieldsetID = fieldset.getAttribute('data-title');
+      const fieldset = validatedFieldsets[i];
+      const fieldsetID = fieldset.getAttribute('data-title');
       
       if(fieldset.querySelector('.is-invalid')){
 
@@ -160,8 +160,8 @@ class iamMultiStep extends HTMLElement {
       }
   
   
-      let fieldsetCount = Array.from(MultiStepComponent.querySelectorAll(`fieldset`)).length;
-      let validFieldsetCount = Array.from(MultiStepComponent.querySelectorAll(`fieldset.valid`)).length;
+      const fieldsetCount = Array.from(MultiStepComponent.querySelectorAll(`fieldset`)).length;
+      const validFieldsetCount = Array.from(MultiStepComponent.querySelectorAll(`fieldset.valid`)).length;
   
       // update the progress bar
       MultiStepComponent.style.setProperty('--progress', `${(validFieldsetCount/(fieldsetCount - 1) * 100)}%`);

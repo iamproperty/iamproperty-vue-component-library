@@ -1,7 +1,7 @@
 // @ts-nocheck
 function testimonial(testimonialElement) {
 
-  var scrollTimeout;
+  let scrollTimeout;
   const imagesCarousel = testimonialElement.querySelector('.testimonial__images');
   const itemCount = imagesCarousel.querySelectorAll('img').length;
 
@@ -34,10 +34,10 @@ function testimonial(testimonialElement) {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(function(){ 
         
-      let scrollWidth = imagesCarousel.scrollWidth;
-      let scrollHeight = imagesCarousel.scrollHeight;
-      let scrollLeft = imagesCarousel.scrollLeft;
-      let scrollDown = imagesCarousel.scrollTop;
+      const scrollWidth = imagesCarousel.scrollWidth;
+      const scrollHeight = imagesCarousel.scrollHeight;
+      const scrollLeft = imagesCarousel.scrollLeft;
+      const scrollDown = imagesCarousel.scrollTop;
       let scrollTo = Math.round((scrollLeft / scrollWidth) * itemCount) + 1;
 
       // Change in scroll direction
@@ -53,15 +53,15 @@ function testimonial(testimonialElement) {
   // when the buttons are used we need to make sure the carousel scrolls to the correct place
   testimonialElement.addEventListener('click', function(e){
 
-    for (var target = e.target; target && target != this; target = target.parentNode) {
+    for (let target = e.target; target && target != this; target = target.parentNode) {
 
       if (target.matches('[data-go]')) {
         
-        let scrollTo = parseInt(target.getAttribute('data-go'));
+        const scrollTo = parseInt(target.getAttribute('data-go'));
         let scrollDown = 0;
         let scrollLeft = 0
-        let scrollWidth = imagesCarousel.scrollWidth;
-        let scrollHeight = imagesCarousel.scrollHeight;
+        const scrollWidth = imagesCarousel.scrollWidth;
+        const scrollHeight = imagesCarousel.scrollHeight;
         
         if(scrollWidth > scrollHeight)
           scrollLeft = Math.floor(scrollWidth * ((scrollTo-1) / itemCount))

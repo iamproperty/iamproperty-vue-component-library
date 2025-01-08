@@ -43,13 +43,13 @@ class iamMultiselect extends HTMLElement {
 
 	connectedCallback() {
 
-    let multiselect = this;
-    let form = this.closest('form');
-    let wrapper = this.shadowRoot.querySelector('.wrapper');
-    let search = multiselect.shadowRoot.querySelector('#search');
-    let button = multiselect.shadowRoot.querySelector('#clear');
+    const multiselect = this;
+    const form = this.closest('form');
+    const wrapper = this.shadowRoot.querySelector('.wrapper');
+    const search = multiselect.shadowRoot.querySelector('#search');
+    const button = multiselect.shadowRoot.querySelector('#clear');
     let order = 0;
-    let label = multiselect.shadowRoot.querySelector('label');
+    const label = multiselect.shadowRoot.querySelector('label');
 
     
     label.innerHTML = multiselect.getAttribute('data-label');
@@ -64,7 +64,7 @@ class iamMultiselect extends HTMLElement {
     // If in form and is required lets watch for the form being submitted
     if(form && multiselect.hasAttribute('data-is-required')){
 
-      let observer = new MutationObserver(function(mutations) {
+      const observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutationRecord) {
           const targetElement = mutationRecord.target as HTMLElement;
 
@@ -140,9 +140,9 @@ class iamMultiselect extends HTMLElement {
 
       Array.from(multiselect.querySelectorAll(`label:not([slot="checked"])`)).forEach((label, index) => {
 
-        let checkbox = label.querySelector('input');
-        let searchValue = checkbox.value;
-        let labelText = label.textContent;
+        const checkbox = label.querySelector('input');
+        const searchValue = checkbox.value;
+        const labelText = label.textContent;
         
         if(searchValue.toLowerCase().includes(search.value.toLowerCase()) || labelText.toLowerCase().includes(search.value.toLowerCase())){
           label.removeAttribute('slot')
@@ -157,7 +157,7 @@ class iamMultiselect extends HTMLElement {
     multiselect.addEventListener('change', (event) => {
 
       if (event && event.target instanceof HTMLElement && event.target.closest('input[type="checkbox"]')){
-        let checkbox = event.target.closest('input[type="checkbox"]');
+        const checkbox = event.target.closest('input[type="checkbox"]');
 
         setItem(checkbox);
 
@@ -190,10 +190,10 @@ class iamMultiselect extends HTMLElement {
 
           if(activeElement.hasAttribute('type') && activeElement.getAttribute('type') == "checkbox"){
 
-            let arrCheckboxes = multiselect.querySelectorAll(`label:not([slot="checked"]):not([slot="checked"])`);
+            const arrCheckboxes = multiselect.querySelectorAll(`label:not([slot="checked"]):not([slot="checked"])`);
 
-            let activeIndex = Array.from(arrCheckboxes).indexOf(activeElement.closest('label'));
-            let prevCheckbox =  Array.from(arrCheckboxes)[activeIndex-1];
+            const activeIndex = Array.from(arrCheckboxes).indexOf(activeElement.closest('label'));
+            const prevCheckbox =  Array.from(arrCheckboxes)[activeIndex-1];
             
             if(prevCheckbox)
               prevCheckbox.focus();
@@ -212,9 +212,9 @@ class iamMultiselect extends HTMLElement {
           }
           else if(activeElement.hasAttribute('type') && activeElement.getAttribute('type') == "checkbox"){
 
-            let activeValue = activeElement.value;
+            const activeValue = activeElement.value;
 
-            let nextCheckbox = multiselect.querySelector(`label:has(input[value="${activeValue}"]) ~ label:not([slot="checked"]):not([slot="checked"])`);
+            const nextCheckbox = multiselect.querySelector(`label:has(input[value="${activeValue}"]) ~ label:not([slot="checked"]):not([slot="checked"])`);
 
             if(nextCheckbox)
               nextCheckbox.focus();
@@ -260,7 +260,7 @@ class iamMultiselect extends HTMLElement {
       switch (event.key) { // change to event.key to key to use the above variable
         case "Enter":
           
-          let match = multiselect.querySelector(`input[value="${search.value}"]:not(:checked)`);
+          const match = multiselect.querySelector(`input[value="${search.value}"]:not(:checked)`);
 
           if(!match)
             search.value = "";
@@ -272,11 +272,11 @@ class iamMultiselect extends HTMLElement {
 
           if(!search.value){
 
-            let lastTag = checkLastTag(order);
+            const lastTag = checkLastTag(order);
 
             if(lastTag){
                 
-              let lastTagInput = lastTag.querySelector('input');
+              const lastTagInput = lastTag.querySelector('input');
               lastTagInput.checked = false;
               setItem(lastTagInput);
             }

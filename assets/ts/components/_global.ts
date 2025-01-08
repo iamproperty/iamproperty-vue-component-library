@@ -20,7 +20,7 @@ export const trackComponent = (component:any, componentName:string, trackEvents:
   trackEvents.forEach((eventName:string) => {
     component.addEventListener(eventName, function(event:any){
 
-      let eventDetails = {
+      const eventDetails = {
         "event": eventName,
         "element": componentName,
         "target": event.target

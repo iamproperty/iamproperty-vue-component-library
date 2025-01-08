@@ -51,7 +51,7 @@ class iamFilterlist extends HTMLElement {
 
 	connectedCallback() {
 
-    let classList = this.classList.toString();
+    const classList = this.classList.toString();
     this.shadowRoot.querySelector('.list__wrapper').setAttribute('class',`list__wrapper ${classList}`);
 
     if(!this.querySelector('i.fa-search'))

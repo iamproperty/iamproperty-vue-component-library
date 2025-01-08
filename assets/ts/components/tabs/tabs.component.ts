@@ -44,7 +44,7 @@ class iamTabs extends HTMLElement {
 
 	connectedCallback() {
     
-    let classList = this.classList.toString().replace('container','');
+    const classList = this.classList.toString().replace('container','');
     this.shadowRoot.querySelector('.tabs').setAttribute('class',`tabs ${classList}`);
 
     tabs(this);

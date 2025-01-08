@@ -2,7 +2,7 @@
 
 export const generateThumbnailList = function(carouselComponent){
 
-  let thumbnailImages = [];
+  const thumbnailImages = [];
 
   Array.from(carouselComponent.querySelectorAll(':scope > div')).forEach((slide, index) => {
         
@@ -18,7 +18,7 @@ export const generateThumbnailList = function(carouselComponent){
 
 export const generatePipsHTML = function(carouselComponent,thumbnailImages){
 
-  let itemCount = carouselComponent.querySelectorAll(':scope > div').length;
+  const itemCount = carouselComponent.querySelectorAll(':scope > div').length;
 
   let pips = "";
   for (let i = 1; i <= itemCount; i++) {
@@ -45,7 +45,7 @@ const getProgressMax = function(itemCount,visibleItems){
     return itemCount;
   }
 
-  let max = (Math.ceil(itemCount / visibleItems) * visibleItems) - visibleItems;
+  const max = (Math.ceil(itemCount / visibleItems) * visibleItems) - visibleItems;
 
   return max + 1;
 }
@@ -57,14 +57,14 @@ const getProgressPercent = function(value,max){
 
 export const carousel = function (carouselComponent) {
 
-  var scrollTimeout;
+  let scrollTimeout;
 
   const carouselElement = carouselComponent.shadowRoot.querySelector('.carousel');
 
-  let carouselInner = carouselElement.querySelector('.carousel__inner');
-  let carouselControls = carouselElement.querySelector('.carousel__controls');
-  let carouselProgress = carouselElement.querySelector('.carousel__progress [type="range"]');
-  let itemCount = carouselComponent.querySelectorAll(':scope > div').length;
+  const carouselInner = carouselElement.querySelector('.carousel__inner');
+  const carouselControls = carouselElement.querySelector('.carousel__controls');
+  const carouselProgress = carouselElement.querySelector('.carousel__progress [type="range"]');
+  const itemCount = carouselComponent.querySelectorAll(':scope > div').length;
   let scrollArea = carouselInner.clientWidth;
   let itemWidth = carouselComponent.querySelector(':scope > div').scrollWidth;
   let visibleItems = Math.round(scrollArea / itemWidth);
@@ -94,20 +94,20 @@ export const carousel = function (carouselComponent) {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(function(){
 
-      let scrollArea = carouselInner.clientWidth;
-      let scrollWidth = carouselInner.scrollWidth;
-      let scrollLeft = carouselInner.scrollLeft;
+      const scrollArea = carouselInner.clientWidth;
+      const scrollWidth = carouselInner.scrollWidth;
+      const scrollLeft = carouselInner.scrollLeft;
       let targetSlide = Math.round((scrollLeft / scrollWidth) * itemCount) + 1;
      
-      let itemWidth = carouselComponent.querySelector(':scope > div').scrollWidth;
-      let lastItemOffset = carouselComponent.querySelector(':scope > div:last-child').offsetLeft;
+      const itemWidth = carouselComponent.querySelector(':scope > div').scrollWidth;
+      const lastItemOffset = carouselComponent.querySelector(':scope > div:last-child').offsetLeft;
       //+60px here is to account for when the next offscreen slide is visible beneath the next arrow
-      let lastItemInView = carouselInner.scrollLeft + scrollArea + carouselInner.getBoundingClientRect().left >= (lastItemOffset + 60);
+      const lastItemInView = carouselInner.scrollLeft + scrollArea + carouselInner.getBoundingClientRect().left >= (lastItemOffset + 60);
 
-      let visibleItems = Math.round(scrollArea / itemWidth);
+      const visibleItems = Math.round(scrollArea / itemWidth);
 
       //Check if theres room for more slides than we have
-      let leftOverSpace = (Math.ceil(itemCount / visibleItems) * visibleItems) - itemCount;
+      const leftOverSpace = (Math.ceil(itemCount / visibleItems) * visibleItems) - itemCount;
 
       carouselProgress.setAttribute('step',visibleItems);
 
@@ -151,7 +151,7 @@ export const carousel = function (carouselComponent) {
   // when the buttons are used we need to make sure the carousel scrolls to the correct place
   carouselControls.addEventListener('click', function(e){
 
-    for (var target = e.target; target && target != this; target = target.parentNode) {
+    for (let target = e.target; target && target != this; target = target.parentNode) {
       if (typeof target.matches == "function" && target.matches('button')) {
         
         e.preventDefault();
@@ -183,31 +183,31 @@ export const carousel = function (carouselComponent) {
   
   carouselElement.addEventListener('click', function(e){
 
-    let scrollArea = carouselInner.clientWidth;
-    let scrollWidth = carouselInner.scrollWidth;
-    let itemWidth = carouselComponent.querySelector(':scope > div').scrollWidth;
+    const scrollArea = carouselInner.clientWidth;
+    const scrollWidth = carouselInner.scrollWidth;
+    const itemWidth = carouselComponent.querySelector(':scope > div').scrollWidth;
 
-    let visibleItems = Math.round(scrollArea / itemWidth);
+    const visibleItems = Math.round(scrollArea / itemWidth);
 
-    let lastItemOffset = carouselComponent.querySelector(':scope > div:last-child').offsetLeft;
-    let lastItemInView = carouselInner.scrollLeft + scrollArea + carouselInner.getBoundingClientRect().left >= (lastItemOffset + 60);
+    const lastItemOffset = carouselComponent.querySelector(':scope > div:last-child').offsetLeft;
+    const lastItemInView = carouselInner.scrollLeft + scrollArea + carouselInner.getBoundingClientRect().left >= (lastItemOffset + 60);
 
     //Check if theres room for more slides than we have
-    let leftOverSpace = (Math.ceil(itemCount / visibleItems) * visibleItems) - itemCount;
+    const leftOverSpace = (Math.ceil(itemCount / visibleItems) * visibleItems) - itemCount;
 
     /* 
       When the last slide isn't filled with items, we only want to move back the number of items on the slide, 
       rather than the total number of possible visible items
     */
-    let spacesToMove = visibleItems - leftOverSpace;
+    const spacesToMove = visibleItems - leftOverSpace;
 
     //Only want to change the amount of movement if the last item is visible
-    let movement = lastItemInView && leftOverSpace > 0 ? spacesToMove * itemWidth : carouselInner.clientWidth;
+    const movement = lastItemInView && leftOverSpace > 0 ? spacesToMove * itemWidth : carouselInner.clientWidth;
 
-    for (var target = e.target; target && target != this; target = target.parentNode) {
+    for (let target = e.target; target && target != this; target = target.parentNode) {
       if (typeof target.matches == "function" && target.matches('.btn-next, .btn-prev')) {
 
-        let direction = target.matches('.btn-next') ? 'next' : 'prev';
+        const direction = target.matches('.btn-next') ? 'next' : 'prev';
 
         const customEvent = new CustomEvent(`${direction}-clicked`, {  detail: { 
           'slide': target.getAttribute('data-go')
@@ -217,7 +217,7 @@ export const carousel = function (carouselComponent) {
         carouselComponent.dispatchEvent(customEvent);
         
         e.preventDefault();
-        let scrollTo = target.classList.contains('btn-prev') ? carouselInner.scrollLeft - movement : carouselInner.scrollLeft + carouselInner.clientWidth;
+        const scrollTo = target.classList.contains('btn-prev') ? carouselInner.scrollLeft - movement : carouselInner.scrollLeft + carouselInner.clientWidth;
         
         carouselInner.scroll({
           top: 0,
@@ -253,7 +253,7 @@ export const carousel = function (carouselComponent) {
   carouselProgress.addEventListener('change', function(e){
 
     clearInterval(stepperInterval);
-    let target = carouselComponent.querySelector(`:scope > *:nth-child(${carouselProgress.value})`);
+    const target = carouselComponent.querySelector(`:scope > *:nth-child(${carouselProgress.value})`);
 
     carouselInner.scroll({
       top: 0,
@@ -261,7 +261,7 @@ export const carousel = function (carouselComponent) {
       behavior: 'smooth'
     });
 
-    let direction = target.matches('.btn-next') ? 'next' : 'prev';
+    const direction = target.matches('.btn-next') ? 'next' : 'prev';
         
     const customEvent = new CustomEvent(`slider-changed`, {  detail: { 
       'slide': carouselProgress.value

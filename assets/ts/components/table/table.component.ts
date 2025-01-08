@@ -149,7 +149,7 @@ class iamTable extends HTMLElement {
 
       function uniqueID(index = 1){
 
-        let ID = Math.floor(Math.random() * Date.now() * (index+1));
+        const ID = Math.floor(Math.random() * Date.now() * (index+1));
 
         return ID;
       }
@@ -172,7 +172,7 @@ class iamTable extends HTMLElement {
         Array.from(this.table.querySelectorAll('tbody tr')).forEach((row,index) => {
           
 
-          let rowID = `row${uniqueID(index)}`;
+          const rowID = `row${uniqueID(index)}`;
           row.insertAdjacentHTML(
             'afterbegin',
             `<td class="td--fixed selectrow selected"><input type="checkbox" name="row" id="${rowID}" ${row.hasAttribute('data-selected') ? `checked="true"` : ''}/><label for="${rowID}"><span class="visually-hidden">Select row</span></label></td>`
@@ -184,8 +184,8 @@ class iamTable extends HTMLElement {
           if (event && event.target instanceof HTMLElement && event.target.closest('.selectrow input')){
 
           
-            let count = this.table.querySelectorAll('.selectrow input[type="checkbox"]').length;
-            let countChecked = this.table.querySelectorAll('.selectrow input[type="checkbox"]:checked').length;
+            const count = this.table.querySelectorAll('.selectrow input[type="checkbox"]').length;
+            const countChecked = this.table.querySelectorAll('.selectrow input[type="checkbox"]:checked').length;
 
             actionbar.setAttribute('data-selected', count == countChecked ? "all" : countChecked);
           };
@@ -221,7 +221,7 @@ class iamTable extends HTMLElement {
               
         if(row.querySelector(':scope > td > .dialog__wrapper')){
 
-          let columnn = row.querySelector(':scope > td > .dialog__wrapper').parentNode;
+          const columnn = row.querySelector(':scope > td > .dialog__wrapper').parentNode;
 
           columnn.classList.add('td--fixed');
 
@@ -263,7 +263,7 @@ class iamTable extends HTMLElement {
     // Push up the pagination events
     this.pagination.addEventListener('update-show', (event) => {
 
-      let show = event.detail.show;
+      const show = event.detail.show;
 
       const updateEvent = new CustomEvent("update-show", { detail: { show: show } });
       this.dispatchEvent(updateEvent);
@@ -271,7 +271,7 @@ class iamTable extends HTMLElement {
 
     this.pagination.addEventListener('update-page', (event) => {
 
-      let page = event.detail.page;
+      const page = event.detail.page;
 
       const updateEvent = new CustomEvent("update-page", { detail: { page: page } });
       this.dispatchEvent(updateEvent);

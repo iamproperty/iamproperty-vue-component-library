@@ -6,7 +6,7 @@ const extendInputs = (body) => {
   function loadInput(){
     // maxlength counter init
     Array.from(document.querySelectorAll('input[maxlength],textarea[maxlength]')).forEach((input,index) => {
-      let wrapper = input.parentElement;
+      const wrapper = input.parentElement;
       setMaxlengthVars(input,wrapper);
     });
 
@@ -35,7 +35,7 @@ const extendInputs = (body) => {
 
       Array.from(document.querySelectorAll('input[type="date"]')).forEach((input,index) => {
         
-        let startDate = today;
+        const startDate = today;
 
         if(input.hasAttribute('data-start')){
 
@@ -45,9 +45,9 @@ const extendInputs = (body) => {
 
         if(input.hasAttribute('data-period')){
 
-          let timePeriod = parseInt(input.getAttribute('data-period'));
+          const timePeriod = parseInt(input.getAttribute('data-period'));
 
-          let endDate = new Date();
+          const endDate = new Date();
           endDate.setDate(startDate.getDate() + timePeriod);
 
           input.setAttribute('max', formatDate(endDate));
@@ -55,10 +55,10 @@ const extendInputs = (body) => {
 
         if(input.hasAttribute('data-allowed-days')){
 
-          let allowedDays = JSON.parse(`[${input.getAttribute('data-allowed-days')}]`);
+          const allowedDays = JSON.parse(`[${input.getAttribute('data-allowed-days')}]`);
           
           input.addEventListener('input', function(e){
-            var day = new Date(this.value).getUTCDay();
+            const day = new Date(this.value).getUTCDay();
 
             if(allowedDays.includes(day))
               input.setCustomValidity("");
@@ -149,8 +149,8 @@ const extendInputs = (body) => {
 }
 
 export const setMaxlengthVars = (input) => {
-  let wrapper = input.parentElement;
-  let maxlength = input.getAttribute('maxlength')
+  const wrapper = input.parentElement;
+  const maxlength = input.getAttribute('maxlength')
   
   wrapper.style.setProperty("--maxlength", maxlength);
 
@@ -181,7 +181,7 @@ export const checkPWDStrength = (input, check = 'no') => {
   const minChars = input.hasAttribute('minlength') ? input.getAttribute('minlength') : 12;
 
   let strength = 1;
-  let strengthName = ['Very weak', 'Weak', 'Average', 'Strong', 'Very strong'];
+  const strengthName = ['Very weak', 'Weak', 'Average', 'Strong', 'Very strong'];
   let extraMsg = '';
 
   //has number
