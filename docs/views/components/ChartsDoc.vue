@@ -503,7 +503,6 @@
     
     <div class="container">
       <h2>Vue Charts component reference</h2>
-      <Readme></Readme>
     </div>
    
 -->
@@ -512,13 +511,11 @@
 
 <script>
 import Chart from '@/components/Chart/Chart.vue'
-import Readme from '@/components/Chart/README.md'
 
 
 export default {
   components: {
     Chart,
-    Readme
   },
   data () {
     return {

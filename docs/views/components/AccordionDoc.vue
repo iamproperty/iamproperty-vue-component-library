@@ -29,11 +29,11 @@
       </details>
       <details>
         <summary><h2>Web component</h2></summary>
-        <WebReadme></WebReadme>
+        
       </details>
       <details>
         <summary><h2>Vue component</h2></summary>
-        <Readme></Readme>
+        
       </details>
     </Tabs>
 
@@ -44,16 +44,12 @@
 import Tabs from '@/components/Tabs/Tabs.vue'
 import Accordion from '@/components/Accordion/Accordion.vue'
 import AccordionItem from '@/components/Accordion/AccordionItem.vue'
-import Readme from '@/components/Accordion/README.md'
-import WebReadme from '~/ts/components/accordion/README.md'
 
 export default {
   components: {
     Tabs,
     Accordion,
     AccordionItem,
-    Readme,
-    WebReadme
   },
   data () {
     return {

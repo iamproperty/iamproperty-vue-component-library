@@ -24,21 +24,16 @@
       <pre><code class="javascript">{{htmlUsage}}</code></pre>
     </div>
 
-    <div class="container">
-      <h2>Vue Banner component reference</h2>
-      <Readme></Readme>
-    </div>
+
   </main>
 </template>
 
 <script>
 import Banner from '@/components/Banner/Banner.vue'
-import Readme from '@/components/Banner/README.md'
 
 export default {
   components: {
     Banner,
-    Readme
   },
   data () {
     return {

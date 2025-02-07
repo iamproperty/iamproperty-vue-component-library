@@ -112,14 +112,6 @@ function filesupload($event){
   <div class="files"></div>
 </div>`}}</code></pre>
         </details>
-        <details>
-          <summary><h2>Web component</h2></summary>
-          <WebReadme></WebReadme>
-        </details>
-        <details>
-          <summary><h2>Vue component</h2></summary>
-          <Readme></Readme>
-        </details>
       </Tabs>
     </div>
     
@@ -158,17 +150,13 @@ import Tabs from '@/components/Tabs/Tabs.vue'
 
 import Input from '@/components/Input/Input.vue'
 import FileUpload from '@/components/FileUpload/FileUpload.vue'
-import Readme from '@/components/FileUpload/README.md'
-import WebReadme from '~/ts/components/fileupload/README.md'
 
 export default {
   components: {
     DSHeader,
     Input,
     FileUpload,
-    Readme,
     Tabs,
-    WebReadme
   },
   data () {
     return {

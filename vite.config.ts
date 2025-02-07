@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import Markdown from 'vite-plugin-vue-markdown'
 import { fileURLToPath } from 'url';
 import { resolve, dirname } from 'path';
 
@@ -45,7 +44,6 @@ export default ({ mode }) => {
           }
         }
       }),
-      Markdown()
     ]
   });
 

@@ -672,11 +672,11 @@
       <Tabs>
         <details>
           <summary><h3>Web component</h3></summary>
-          <WebReadme></WebReadme>
+          
         </details>
         <details>
           <summary><h3>Vue component</h3></summary>
-          <Readme></Readme>
+          
         </details>
         <!--
         <details>
@@ -806,8 +806,6 @@ import Table from '@/components/Table/Table.vue'
 // Component - Replace the card references to new component
 import Actionbar from '@/components/Actionbar/Actionbar.vue'
 import Card from '@/components/Card/Card.vue'
-import Readme from '@/components/Actionbar/README.md'
-import WebReadme from '~/ts/components/actionbar/README.md'
 
 import anatomy from '../../img/actionbar/actionbar-anatomy.png'
 import tablelist from '../../img/actionbar/actionbar-tablelist.png'
@@ -844,8 +842,6 @@ export default {
     Table,
     Actionbar,
     Card,
-    Readme,
-    WebReadme,
     anatomy,
     PopoverLists,
     tablelist,

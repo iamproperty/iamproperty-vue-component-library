@@ -138,11 +138,9 @@
       <Tabs>
         <details>
           <summary><h3>Web component</h3></summary>
-          <WebReadme></WebReadme>
         </details>
         <details>
           <summary><h3>Vue component</h3></summary>
-          <Readme></Readme>
         </details>
         <!--
         <details>
